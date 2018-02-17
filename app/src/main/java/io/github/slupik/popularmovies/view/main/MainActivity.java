@@ -5,7 +5,7 @@ import android.os.Bundle;
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.view.mvp.presented.BaseActivity;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainPresentedView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
