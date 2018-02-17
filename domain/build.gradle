@@ -1,0 +1,19 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation files('libs/json-20141113.jar')
+
+    //Annotations
+    implementation "com.android.support:support-annotations:$supportAnnotations"
+
+    /*
+		TESTS
+	 */
+    testCompile "junit:junit:$junit"
+    testCompile "org.mockito:mockito-core:$mockitoCore"
+    testCompile "org.assertj:assertj-core:$assertJCore"
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

@@ -1,18 +1,16 @@
 apply plugin: 'com.android.library'
 
 android {
-	compileSdkVersion 26
+	def globalConfiguration = rootProject.extensions.getByName("ext")
 
-
-
+	compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
 	defaultConfig {
-		minSdkVersion 15
-		targetSdkVersion 26
-		versionCode 1
-		versionName "1.0"
+		minSdkVersion globalConfiguration["androidMinSdkVersion"]
+		targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+		versionCode globalConfiguration["versionCode"]
+		versionName globalConfiguration["versionName"]
 
-		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+		testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
 	}
 
 	buildTypes {
@@ -26,9 +24,26 @@ android {
 
 dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation project(':domain')
 
-	implementation 'com.android.support:appcompat-v7:26.1.0'
-	testImplementation 'junit:junit:4.12'
-	androidTestImplementation 'com.android.support.test:runner:1.0.1'
-	androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+	//Dependency injection - dagger
+	compile "com.google.dagger:dagger:$daggerVersion"
+	annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+	compile "com.google.dagger:dagger-android:$daggerVersion"
+	annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+	compile "com.google.dagger:dagger-android-support:$daggerVersion"
+
+	//Android background
+	compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+	compile "com.google.code.gson:gson:$gsonVersion"
+
+	//Android compatibility stuff
+	implementation "com.android.support:appcompat-v7:$appcompat"
+
+	/*
+		TESTS
+	 */
+	testImplementation "junit:junit:$junit"
+	androidTestImplementation "com.android.support.test:runner:$supportTestRunner"
+	androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoCore"
 }

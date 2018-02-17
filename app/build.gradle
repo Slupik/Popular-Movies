@@ -1,14 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
     defaultConfig {
-        applicationId "io.github.slupik.popularmovies"
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+
+        applicationId globalConfiguration["applicationId"]
+        versionCode globalConfiguration["versionCode"]
+        versionName globalConfiguration["versionName"]
+        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
     }
     buildTypes {
         release {
@@ -20,9 +23,31 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation project(':domain')
+    implementation project(':device')
+    implementation project(':data')
+
+    //Dependency injection - dagger
+    compile "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    compile "com.google.dagger:dagger-android:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+    compile "com.google.dagger:dagger-android-support:$daggerVersion"
+
+    //Android view
+    compile "com.jakewharton:butterknife:$butterKnife"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
+
+    compile "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
+
+//    Android compatibility stuff
+    implementation ("com.android.support:appcompat-v7:26.1.0")
+
+    /*
+		TESTS
+	 */
+    testImplementation "junit:junit:$junit"
+    androidTestImplementation "com.android.support.test:runner:$supportTestRunner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoCore"
 }
