@@ -35,6 +35,7 @@ dependencies {
 
 	//Android background
 	compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+	compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 	compile "com.google.code.gson:gson:$gsonVersion"
 
 	//Android compatibility stuff
