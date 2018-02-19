@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import io.github.slupik.data.dagger.film.downloader.DaggerFilmRetrofitDownloaderComponent;
 import io.github.slupik.data.dagger.film.downloader.FilmRetrofitDownloaderComponent;
-import io.github.slupik.data.dagger.film.downloader.TheMovieDbApi;
 import io.github.slupik.popularmovies.domain.film.list.FilmList;
 
 /**
@@ -87,7 +86,6 @@ public class FilmListBeanTest {
 
     private Gson getGsonForRetrofit() {
         FilmRetrofitDownloaderComponent downloader = DaggerFilmRetrofitDownloaderComponent.builder()
-                .theMovieDbApi(new TheMovieDbApi(""))
                 .build();
         return downloader.getGson();
     }

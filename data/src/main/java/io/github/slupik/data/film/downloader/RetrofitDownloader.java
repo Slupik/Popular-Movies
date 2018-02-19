@@ -5,6 +5,7 @@ import java.util.List;
 import io.github.slupik.data.film.FilmBean;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Created by Sebastian Witasik on 17.02.2018.
@@ -13,9 +14,13 @@ import retrofit2.http.GET;
  */
 
 public interface RetrofitDownloader {
-    @GET("/movie/popular")
-    Call<List<FilmBean>> getPopularFilms();
+    @GET("movie/popular?api_key={api_key}&language={language}&page={page}")
+    Call<List<FilmBean>> getPopularFilms(@Path("api_key") String apiKey,
+                                         @Path("language") String language,
+                                         @Path("page") int page);
 
-    @GET("/movie/top_rated")
-    Call<List<FilmBean>> getTopRatedFilms();
+    @GET("movie/top_rated?api_key={api_key}&language={language}&page={page}")
+    Call<List<FilmBean>> getTopRatedFilms(@Path("api_key") String apiKey,
+                                          @Path("language") String language,
+                                          @Path("page") int page);
 }

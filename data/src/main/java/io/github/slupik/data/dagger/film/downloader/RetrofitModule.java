@@ -13,14 +13,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * E-mail: Sebastian Witasik
  * All rights reserved & copyright ©
  */
-@Module(includes = {GsonModule.class, TheMovieDbApi.class})
+@Module(includes = {GsonModule.class})
 class RetrofitModule {
-    private static final String BASE_URL = "http://api.themoviedb.org/3/movie/popular?api_key=";
+    private static final String BASE_URL = "http://api.themoviedb.org/3/";
 
     @Provides
-    Retrofit retrofit(Gson gson, String apiKey){
+    Retrofit retrofit(Gson gson){
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL+apiKey)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }

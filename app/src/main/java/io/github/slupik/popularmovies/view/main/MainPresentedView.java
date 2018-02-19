@@ -1,5 +1,9 @@
 package io.github.slupik.popularmovies.view.main;
 
+import java.util.List;
+
+import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
 import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
 
 /**
@@ -8,5 +12,13 @@ import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
  * All rights reserved & copyright ©
  */
 
-public interface MainPresentedView extends PresentedView {
+interface MainPresentedView extends PresentedView {
+    void addFilms(List<Film> list);
+    void flushFilms();
+
+    void errorUnknownSortType();
+
+    void errorWhileDownloading(FilmDownloadError error);
+
+    void errorUnknownWhileDownloading();
 }

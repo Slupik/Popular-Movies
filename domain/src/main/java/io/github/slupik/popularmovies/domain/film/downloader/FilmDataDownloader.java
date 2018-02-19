@@ -10,9 +10,9 @@ import io.github.slupik.popularmovies.domain.film.Film;
  * All rights reserved & copyright ©
  */
 
-public interface FilmDataDownloader {
-    void downloadPopular(Callback callback);
-    void downloadTopRated(Callback callback);
+public interface FilmDataDownloader<D extends DataForDownloader> {
+    void downloadPopular(Callback callback, D data);
+    void downloadTopRated(Callback callback, D data);
 
     interface Callback {
         void onSuccess(List<Film> data);
