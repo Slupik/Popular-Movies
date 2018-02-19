@@ -1,4 +1,4 @@
-package io.github.slupik.popularmovies.domain.film;
+package io.github.slupik.popularmovies.domain.film.downloader;
 
 /**
  * Created by Sebastian Witasik on 17.02.2018.
@@ -8,7 +8,7 @@ package io.github.slupik.popularmovies.domain.film;
 
 public enum FilmDownloadError {
     OTHER,
-    UNKNOW,
+    UNKNOWN,
     WRONG_API_KEY,
     NO_PERMISSION,
     EMPTY_BODY, NO_INTERNET_CONNECTION

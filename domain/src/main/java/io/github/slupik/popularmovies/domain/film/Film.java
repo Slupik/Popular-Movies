@@ -13,8 +13,11 @@ public interface Film {
     Film setReleaseDate(String releaseDate);
     String getReleaseDate();
 
-    Film setPosterUrl(String posterUrl);
-    String getPosterUrl();
+    Film setPosterPath(String posterUrl);
+    String getPosterPath();
+
+    Film setBackdropPath(String backdropUrl);
+    String getBackdropPath();
 
     Film setVoteAverage(double average);
     double getVoteAverage();

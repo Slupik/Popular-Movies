@@ -1,6 +1,8 @@
-package io.github.slupik.popularmovies.domain.film;
+package io.github.slupik.popularmovies.domain.film.downloader;
 
 import java.util.List;
+
+import io.github.slupik.popularmovies.domain.film.Film;
 
 /**
  * Created by Sebastian Witasik on 17.02.2018.

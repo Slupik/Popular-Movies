@@ -45,14 +45,25 @@ public class FilmBean implements Film {
     }
 
     @Override
-    public Film setPosterUrl(String posterUrl) {
+    public Film setPosterPath(String posterUrl) {
         this.posterUrl = posterUrl;
         return this;
     }
 
     @Override
-    public String getPosterUrl() {
+    public String getPosterPath() {
         return posterUrl;
+    }
+
+    @Override
+    public Film setBackdropPath(String backdropUrl) {
+        //TODO fill this up
+        return null;
+    }
+
+    @Override
+    public String getBackdropPath() {
+        return null;
     }
 
     @Override

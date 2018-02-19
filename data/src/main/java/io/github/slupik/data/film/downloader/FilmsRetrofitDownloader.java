@@ -10,8 +10,8 @@ import io.github.slupik.data.dagger.film.downloader.DaggerFilmRetrofitDownloader
 import io.github.slupik.data.dagger.film.downloader.TheMovieDbApi;
 import io.github.slupik.data.film.FilmBean;
 import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.FilmDataDownloader;
-import io.github.slupik.popularmovies.domain.film.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.film.downloader.FilmDataDownloader;
+import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -51,7 +51,7 @@ public class FilmsRetrofitDownloader implements FilmDataDownloader {
                         callback.onFail(FilmDownloadError.EMPTY_BODY);
                     }
                 } else {
-                    callback.onFail(FilmDownloadError.UNKNOW);
+                    callback.onFail(FilmDownloadError.UNKNOWN);
                 }
             }
 
@@ -79,7 +79,7 @@ public class FilmsRetrofitDownloader implements FilmDataDownloader {
                         callback.onFail(FilmDownloadError.EMPTY_BODY);
                     }
                 } else {
-                    callback.onFail(FilmDownloadError.UNKNOW);
+                    callback.onFail(FilmDownloadError.UNKNOWN);
                 }
             }
 
