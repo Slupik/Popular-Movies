@@ -29,16 +29,16 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
 
     @Override
     public void errorUnknownSortType() {
-
+        showErrorDialog(R.string.connection_to_database_error_title, R.string.unknown_film_sort_type);
     }
 
     @Override
     public void errorWhileDownloading(FilmDownloadError error) {
-
+        showErrorDialog(R.string.connection_to_database_error_title, R.string.connection_error_check_connection);
     }
 
     @Override
     public void errorUnknownWhileDownloading() {
-
+        showErrorDialog(R.string.connection_to_database_error_title, R.string.connection_unknown_error);
     }
 }
