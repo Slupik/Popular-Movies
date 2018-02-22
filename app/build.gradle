@@ -37,12 +37,13 @@ dependencies {
     //Android view
     compile "com.jakewharton:butterknife:$butterKnife"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
+    compile "com.android.support:recyclerview-v7:$appcompat"
 
     compile "com.squareup.picasso:picasso:$picassoVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
 
 //    Android compatibility stuff
-    implementation ("com.android.support:appcompat-v7:26.1.0")
+    implementation ("com.android.support:appcompat-v7:$appcompat")
 
     /*
 		TESTS

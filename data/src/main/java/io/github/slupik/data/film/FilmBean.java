@@ -15,12 +15,14 @@ public class FilmBean implements Film {
     private String title;
     @SerializedName("releaseDate")
     private String releaseDate;
-    @SerializedName("thumbnail")
+    @SerializedName("poster_path")
     private String posterUrl;
     @SerializedName("vote_average")
     private double voteAverage;
     @SerializedName("overview")
     private String overview;
+    @SerializedName("backdrop_path")
+    private String backdropPath;
 
     @Override
     public Film setTitle(String title) {
@@ -56,14 +58,14 @@ public class FilmBean implements Film {
     }
 
     @Override
-    public Film setBackdropPath(String backdropUrl) {
-        //TODO fill this up
-        return null;
+    public Film setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+        return this;
     }
 
     @Override
     public String getBackdropPath() {
-        return null;
+        return backdropPath;
     }
 
     @Override

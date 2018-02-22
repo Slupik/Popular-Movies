@@ -8,6 +8,8 @@ import io.github.slupik.data.film.downloader.RetrofitDownloader;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static io.github.slupik.data.film.FilmConnectionUtils.API_BASE_URL;
+
 /**
  * Created by Sebastian Witasik on 17.02.2018.
  * E-mail: Sebastian Witasik
@@ -15,12 +17,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module(includes = {GsonModule.class})
 class RetrofitModule {
-    private static final String BASE_URL = "http://api.themoviedb.org/3/";
 
     @Provides
     Retrofit retrofit(Gson gson){
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }

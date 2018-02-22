@@ -8,7 +8,7 @@ import io.github.slupik.popularmovies.view.mvp.presenter.Presenter;
  * All rights reserved & copyright ©
  */
 
-interface MainPresenter extends Presenter<MainPresentedView> {
+public interface MainPresenter extends Presenter<MainPresentedView> {
     void switchFilmsType(FilmsType type);
     void downloadMoreData();
 }
