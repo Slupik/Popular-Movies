@@ -219,7 +219,7 @@ public class RecycleViewFilmList extends RecyclerView.Adapter<ViewHolderFilm> {
         downloading = false;
     }
 
-    public void flushFilms() {
+    public void clearList() {
         filmList.clear();
     }
 

@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
 
     @Override
     public void flushFilms() {
-        mAdapter.flushFilms();
+        mAdapter.clearList();
     }
 
     @Override
