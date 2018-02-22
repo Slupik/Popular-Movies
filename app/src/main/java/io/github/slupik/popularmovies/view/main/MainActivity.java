@@ -23,7 +23,7 @@ import static io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList.
 
 public class MainActivity extends BaseActivity implements MainPresentedView {
 
-    private static final boolean TEST_UX = true;
+    private static final boolean TEST_UX = false;
 
     @BindView(R.id.rv_film_list)
     RecyclerView rvFilmList;
@@ -43,6 +43,7 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
                 .contextModule(new ContextModule(this))
                 .build()
                 .inject(this);
+        presenter.onAttach(this);
 
         setupRecyclerView();
     }
@@ -52,6 +53,10 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
             mAdapter = FakePresenterForUXTest.initRecycleView(this.getApplicationContext());
         } else {
             mAdapter = new RecycleViewFilmList(presenter);
+            mAdapter.loadMoreData();
+        }
+        if(mAdapter.getContext()==null) {
+            mAdapter.setContext(this);
         }
         RecyclerView.LayoutManager manager = new GridLayoutManager(this, NUMBER_OF_FILMS_IN_ROW);
         rvFilmList.setLayoutManager(manager);

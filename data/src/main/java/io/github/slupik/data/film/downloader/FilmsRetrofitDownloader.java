@@ -1,11 +1,9 @@
 package io.github.slupik.data.film.downloader;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.github.slupik.data.dagger.film.downloader.DaggerFilmRetrofitDownloaderComponent;
-import io.github.slupik.data.film.FilmBean;
+import io.github.slupik.data.film.list.FilmListBean;
 import io.github.slupik.popularmovies.domain.film.downloader.FilmDataDownloader;
 import retrofit2.Call;
 
@@ -28,13 +26,13 @@ public class FilmsRetrofitDownloader implements FilmDataDownloader<RetrofitDownl
 
     @Override
     public void downloadPopular(final Callback callback, RetrofitDownloadData data) {
-        Call<List<FilmBean>> call = downloader.getPopularFilms(data.getApiKey(), data.getLanguage(), data.getPage());
+        Call<FilmListBean> call = downloader.getPopularFilms(data.getApiKey(), data.getLanguage(), data.getPage());
         call.enqueue(new FilmListRetrofitCallback(callback));
     }
 
     @Override
     public void downloadTopRated(final Callback callback, RetrofitDownloadData data) {
-        Call<List<FilmBean>> call = downloader.getTopRatedFilms(data.getApiKey(), data.getLanguage(), data.getPage());
+        Call<FilmListBean> call = downloader.getTopRatedFilms(data.getApiKey(), data.getLanguage(), data.getPage());
         call.enqueue(new FilmListRetrofitCallback(callback));
     }
 }

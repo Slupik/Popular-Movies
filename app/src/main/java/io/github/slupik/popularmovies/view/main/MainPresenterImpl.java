@@ -3,15 +3,14 @@ package io.github.slupik.popularmovies.view.main;
 import android.content.Context;
 import android.util.Log;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.github.slupik.data.film.downloader.RetrofitDownloadData;
+import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.dagger.view.main.DaggerPresenterComponent;
-import io.github.slupik.popularmovies.domain.film.Film;
 import io.github.slupik.popularmovies.domain.film.downloader.FilmDataDownloader;
 import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.film.list.FilmList;
 import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
 
 /**
@@ -30,6 +29,8 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
     public MainPresenterImpl(Context context) {
         super(context);
         DaggerPresenterComponent.builder().build().inject(this);
+        String apiKey = context.getString(R.string.key_themoviedb);
+        mDownloadData.setApiKey(apiKey);
     }
 
     @Override
@@ -57,8 +58,8 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
     }
 
     @Override
-    public void onSuccess(List<Film> data) {
-        presented.addFilms(data);
+    public void onSuccess(FilmList data) {
+        presented.addFilms(data.getList());
     }
 
     @Override

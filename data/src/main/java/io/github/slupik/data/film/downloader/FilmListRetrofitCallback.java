@@ -2,13 +2,10 @@ package io.github.slupik.data.film.downloader;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import io.github.slupik.data.film.FilmBean;
-import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.data.film.list.FilmListBean;
 import io.github.slupik.popularmovies.domain.film.downloader.FilmDataDownloader;
 import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.film.list.FilmList;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -18,7 +15,7 @@ import retrofit2.Response;
  * All rights reserved & copyright ©
  */
 
-class FilmListRetrofitCallback implements retrofit2.Callback<List<FilmBean>> {
+class FilmListRetrofitCallback implements retrofit2.Callback<FilmListBean> {
     private FilmDataDownloader.Callback callback;
 
     FilmListRetrofitCallback(FilmDataDownloader.Callback callback) {
@@ -26,13 +23,11 @@ class FilmListRetrofitCallback implements retrofit2.Callback<List<FilmBean>> {
     }
 
     @Override
-    public void onResponse(@NonNull Call<List<FilmBean>> call, @NonNull Response<List<FilmBean>> response) {
+    public void onResponse(@NonNull Call<FilmListBean> call, @NonNull Response<FilmListBean> response) {
         if(response.isSuccessful()) {
-            List<FilmBean> body = response.body();
+            FilmList body = response.body();
             if(body!=null){
-                List<Film> data = new ArrayList<>();
-                data.addAll(body);
-                callback.onSuccess(data);
+                callback.onSuccess(body);
             } else {
                 callback.onFail(FilmDownloadError.EMPTY_BODY);
             }
@@ -42,7 +37,7 @@ class FilmListRetrofitCallback implements retrofit2.Callback<List<FilmBean>> {
     }
 
     @Override
-    public void onFailure(@NonNull Call<List<FilmBean>> call, @NonNull Throwable t) {
+    public void onFailure(@NonNull Call<FilmListBean> call, @NonNull Throwable t) {
         callback.onFail(t);
     }
 }

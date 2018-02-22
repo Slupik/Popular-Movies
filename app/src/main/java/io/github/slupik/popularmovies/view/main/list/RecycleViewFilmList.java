@@ -65,7 +65,7 @@ public class RecycleViewFilmList extends RecyclerView.Adapter<ViewHolderFilm> {
         }
     }
 
-    private void loadMoreData() {
+    public void loadMoreData() {
         synchronized (this) {
             if(downloading) {
                 return;
@@ -108,5 +108,13 @@ public class RecycleViewFilmList extends RecyclerView.Adapter<ViewHolderFilm> {
     @Override
     public int getItemCount() {
         return filmList.size();
+    }
+
+    public Context getContext() {
+        return mContext;
+    }
+
+    public void setContext(Context mContext) {
+        this.mContext = mContext;
     }
 }
