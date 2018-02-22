@@ -24,18 +24,45 @@ import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
 class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements MainPresenter {
 
     private static final int AMOUNT_OF_BASIC_DATA = 10;
-    private static final int SLEEP_TIME = 1000;
+    private static final int SLEEP_TIME = 5000;
 
-    private final RecycleViewFilmList rvList;
+    private RecycleViewFilmList rvList;
+    private FakeDownloading downloader = new FakeDownloading();
 
-    public FakePresenterForUXTest(Context context, RecycleViewFilmList rvList) {
+    FakePresenterForUXTest(Context context) {
         super(context);
-        this.rvList = rvList;
+    }
+
+    static RecycleViewFilmList initRecycleView(Context context){
+        FakePresenterForUXTest fake = new FakePresenterForUXTest(context);
+        RecycleViewFilmList mAdapter = new RecycleViewFilmList(fake);
+        fake.setRvList(mAdapter);
+        fake.insertInitData();
+        return mAdapter;
     }
 
     @Override
     public void downloadMoreData() {
-        new FakeDownloading().start();
+        downloader.start();
+    }
+
+    void insertInitData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Gson gson = new GsonBuilder()
+                        .registerTypeAdapter(Film.class, new FilmDeserializer())
+                        .setLenient()
+                        .create();
+                FilmListBean list = gson.fromJson(PLAIN_JSON, FilmListBean.class);
+                rvList.addFilms(list.getList(), context);
+            }
+        }).start();
     }
 
     @Override
@@ -46,7 +73,7 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
 
     private class FakeDownloading implements Runnable {
 
-        public void start() {
+        void start() {
             new Thread(this).start();
         }
 
@@ -82,6 +109,11 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
                 e.printStackTrace();
             }
         }
+    }
+
+    public FakePresenterForUXTest setRvList(RecycleViewFilmList rvList) {
+        this.rvList = rvList;
+        return this;
     }
 
     private static final String PLAIN_JSON = "{\n" +

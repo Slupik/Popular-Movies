@@ -48,7 +48,6 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
                             .with(context)
                             .load(getImageUrl(film))
                             .resize(ivPoster.getWidth(), 0)
-//                        .fit().centerCrop()
                             .into(ivPoster);
                 } else {
                     new Thread(new Runnable() {
@@ -60,7 +59,6 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                System.out.println("ivPoster = " + ivPoster.getWidth());
                             }
                             ivPoster.post(new Runnable() {
                                 @Override
@@ -69,7 +67,6 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
                                             .with(context)
                                             .load(getImageUrl(film))
                                             .resize(ivPoster.getWidth(), 0)
-//                        .fit().centerCrop()
                                             .into(ivPoster);
                                 }
                             });
@@ -86,9 +83,5 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
         url += IMAGE_SIZE;
         url += film.getPosterPath();
         return url;
-    }
-
-    void showDownLoader() {
-
     }
 }
