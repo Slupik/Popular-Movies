@@ -26,6 +26,8 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
 
     private static final String PATH = "t/p/";
     private static final String IMAGE_SIZE = TheMovieDbUtils.PosterSizes.W_342.CODE;
+    private static final int TIME_INTERVAL = 100;
+    private static final int MAX_WAITING_TIME_FOR_POSTER = TIME_INTERVAL*20;
 
     @BindView(R.id.iv_film_list_item)
     ImageView ivPoster;
@@ -44,37 +46,47 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
             public void run() {
                 title.setText(film.getTitle());
                 if(ivPoster.getWidth()>0) {
-                    Picasso
-                            .with(context)
-                            .load(getImageUrl(film))
-                            .resize(ivPoster.getWidth(), 0)
-                            .into(ivPoster);
+                    loadPosterWithPicasso(context, film);
                 } else {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            while(ivPoster.getWidth()==0){
-                                try {
-                                    Thread.sleep(100);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            ivPoster.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Picasso
-                                            .with(context)
-                                            .load(getImageUrl(film))
-                                            .resize(ivPoster.getWidth(), 0)
-                                            .into(ivPoster);
-                                }
-                            });
-                        }
-                    }).start();
+                    forceLoadPoster(context, film);
                 }
             }
         });
+    }
+
+    private void forceLoadPoster(final Context context, final Film film) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                waitUntilLoad();
+                ivPoster.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadPosterWithPicasso(context, film);
+                    }
+                });
+            }
+
+            private void waitUntilLoad() {
+                int totalTime = 0;
+                while(ivPoster.getWidth()==0 && MAX_WAITING_TIME_FOR_POSTER>totalTime){
+                    try {
+                        Thread.sleep(TIME_INTERVAL);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    totalTime += TIME_INTERVAL;
+                }
+            }
+        }).start();
+    }
+
+    private void loadPosterWithPicasso(Context context, Film film) {
+        Picasso
+                .with(context)
+                .load(getImageUrl(film))
+                .resize(ivPoster.getWidth(), 0)
+                .into(ivPoster);
     }
 
     private String getImageUrl(Film film) {
