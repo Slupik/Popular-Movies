@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -35,9 +37,16 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_holder_id)
     TextView title;
 
+    @BindView(R.id.pb_loading)
+    ProgressBar pbLoading;
+
     ViewHolderFilm(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+    }
+
+    void onRemoveFromList() {
+        pbLoading.setVisibility(View.VISIBLE);
     }
 
     void bind(final Context context, final Film film) {
@@ -46,6 +55,7 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
             public void run() {
                 title.setText(film.getTitle());
                 if(ivPoster.getWidth()>0) {
+                    setPosterHeight();
                     loadPosterWithPicasso(context, film);
                 } else {
                     forceLoadPoster(context, film);
@@ -59,6 +69,7 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
             @Override
             public void run() {
                 waitUntilLoad();
+                setPosterHeight();
                 ivPoster.post(new Runnable() {
                     @Override
                     public void run() {
@@ -85,8 +96,18 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
         Picasso
                 .with(context)
                 .load(getImageUrl(film))
-                .resize(ivPoster.getWidth(), 0)
-                .into(ivPoster);
+                .resize(ivPoster.getWidth(), (int)(ivPoster.getWidth()*1.5))
+                .into(ivPoster, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        pbLoading.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
     }
 
     private String getImageUrl(Film film) {
@@ -95,5 +116,19 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
         url += IMAGE_SIZE;
         url += film.getPosterPath();
         return url;
+    }
+
+    private void setPosterHeight() {
+        ivPoster.post(new Runnable() {
+            @Override
+            public void run() {
+                ivPoster.setMinimumHeight(getHeightOfPoster(ivPoster.getWidth()));
+            }
+        });
+    }
+
+    private static final double RATIO_FOR_POSTER_HEIGHT = 1.5;
+    private int getHeightOfPoster(int width) {
+        return (int) (width*RATIO_FOR_POSTER_HEIGHT);
     }
 }

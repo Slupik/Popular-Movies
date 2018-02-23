@@ -56,6 +56,12 @@ public class RecycleViewFilmList extends RecyclerView.Adapter<ViewHolderFilm> {
     }
 
     @Override
+    public void onViewRecycled(ViewHolderFilm holder) {
+        super.onViewRecycled(holder);
+        holder.onRemoveFromList();
+    }
+
+    @Override
     public void onBindViewHolder(ViewHolderFilm holder, int position) {
         if(filmList.size()>position){
             holder.bind(mContext, filmList.get(position));
