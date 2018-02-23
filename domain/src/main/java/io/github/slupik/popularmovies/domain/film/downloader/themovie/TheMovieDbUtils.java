@@ -23,7 +23,7 @@ public class TheMovieDbUtils {
         }
     }
     public enum BackdropSizes {
-        W_300("w92"),
+        W_300("w300"),
         W_780("w780"),
         W_1280("w1280"),
         ORIGINAL("original");
