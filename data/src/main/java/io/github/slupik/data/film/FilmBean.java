@@ -13,7 +13,7 @@ import io.github.slupik.popularmovies.domain.film.Film;
 public class FilmBean implements Film {
     @SerializedName("title")
     private String title;
-    @SerializedName("releaseDate")
+    @SerializedName("release_date")
     private String releaseDate;
     @SerializedName("poster_path")
     private String posterUrl;
