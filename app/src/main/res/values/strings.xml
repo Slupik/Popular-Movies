@@ -4,4 +4,5 @@
 	<string name="connection_unknown_error">Cannot download data. An unknown error occurred.</string>
 	<string name="connection_error_check_connection">Cannot download data. Check the internet connection.</string>
 	<string name="unknown_film_sort_type">Requested sort type doesn\'t exists. You shouldn\'t see this dialog. Report it to the application\'s creator.</string>
+	<string name="film_poster_content_description">Wait for load film title</string>
 </resources>

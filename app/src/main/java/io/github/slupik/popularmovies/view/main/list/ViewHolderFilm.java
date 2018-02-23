@@ -53,6 +53,7 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
         ivPoster.post(new Runnable() {
             @Override
             public void run() {
+                ivPoster.setContentDescription(film.getTitle());
                 title.setText(film.getTitle());
                 if(ivPoster.getWidth()>0) {
                     setPosterHeight();
@@ -102,7 +103,6 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
                     public void onSuccess() {
                         pbLoading.setVisibility(View.GONE);
                     }
-
                     @Override
                     public void onError() {
 
