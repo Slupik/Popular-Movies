@@ -3,6 +3,9 @@ package io.github.slupik.popularmovies.view.main;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +65,28 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
         rvFilmList.setLayoutManager(manager);
         rvFilmList.setHasFixedSize(true);
         rvFilmList.setAdapter(mAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.sort_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sort_by_popular: {
+                presenter.switchFilmsType(FilmsType.POPULAR);
+                return true;
+            }
+            case R.id.sort_by_rate: {
+                presenter.switchFilmsType(FilmsType.TOP_RATED);
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

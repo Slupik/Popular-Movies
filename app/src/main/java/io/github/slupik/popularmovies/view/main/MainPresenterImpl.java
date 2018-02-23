@@ -35,8 +35,12 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
 
     @Override
     public void switchFilmsType(FilmsType type) {
+        if(mActualType==type){
+            return;
+        }
         mActualType = type;
         presented.flushFilms();
+        page = 1;
         downloadMoreData();
     }
 

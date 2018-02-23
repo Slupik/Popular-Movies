@@ -5,4 +5,6 @@
 	<string name="connection_error_check_connection">Cannot download data. Check the internet connection.</string>
 	<string name="unknown_film_sort_type">Requested sort type doesn\'t exists. You shouldn\'t see this dialog. Report it to the application\'s creator.</string>
 	<string name="film_poster_content_description">Wait for load film title</string>
+	<string name="show_top_rated">Show top rated films</string>
+	<string name="show_popular">Show the most popular</string>
 </resources>
