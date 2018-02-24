@@ -38,7 +38,7 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
     @BindView(R.id.iv_film_list_item)
     ImageView ivPoster;
 
-    @BindView(R.id.tv_holder_id)
+    @BindView(R.id.tv_holder_title)
     TextView title;
 
     @BindView(R.id.pb_loading)
@@ -107,6 +107,7 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
                     @Override
                     public void onSuccess() {
                         pbLoading.setVisibility(View.GONE);
+                        title.setVisibility(View.GONE);
                     }
                     @Override
                     public void onError() {
