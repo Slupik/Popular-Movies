@@ -51,6 +51,7 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
 
     void onRemoveFromList() {
         pbLoading.setVisibility(View.VISIBLE);
+        title.setVisibility(View.VISIBLE);
     }
 
     void bind(final Context context, final Film film) {
