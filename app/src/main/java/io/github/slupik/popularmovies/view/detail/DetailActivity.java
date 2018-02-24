@@ -26,7 +26,7 @@ public class DetailActivity extends BaseActivity {
 
     public static final String BUNDLE_NAME_WITH_MOVIE_DATA = "movie_data";
     private static final String PATH = "t/p/";
-    private static final String IMAGE_SIZE = TheMovieDbUtils.BackdropSizes.W_300.CODE;
+    private static final String IMAGE_SIZE = TheMovieDbUtils.BackdropSizes.W_1280.CODE;
 
     @Inject
     Gson jsonConverter;
