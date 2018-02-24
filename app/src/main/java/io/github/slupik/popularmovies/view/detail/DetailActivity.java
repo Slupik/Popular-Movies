@@ -25,7 +25,6 @@ import static io.github.slupik.data.film.FilmConnectionUtils.IMAGE_BASE_URL;
 public class DetailActivity extends BaseActivity {
 
     public static final String BUNDLE_NAME_WITH_MOVIE_DATA = "movie_data";
-    private static final String PATH = "t/p/";
     private static final String IMAGE_SIZE = TheMovieDbUtils.BackdropSizes.W_1280.CODE;
 
     @Inject
@@ -77,7 +76,6 @@ public class DetailActivity extends BaseActivity {
 
     private String getImageUrl(Film film) {
         String url = IMAGE_BASE_URL;
-        url += PATH;
         url += IMAGE_SIZE;
         url += film.getBackdropPath();
         return url;

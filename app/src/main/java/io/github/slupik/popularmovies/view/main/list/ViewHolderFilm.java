@@ -28,7 +28,6 @@ import static io.github.slupik.data.film.FilmConnectionUtils.IMAGE_BASE_URL;
 
 class ViewHolderFilm extends RecyclerView.ViewHolder {
 
-    private static final String PATH = "t/p/";
     private static final String IMAGE_SIZE = TheMovieDbUtils.PosterSizes.W_185.CODE;
     private static final int TIME_INTERVAL = 100;
     private static final int MAX_WAITING_TIME_FOR_POSTER = TIME_INTERVAL*20;
@@ -119,7 +118,6 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
 
     private String getImageUrl(Film film) {
         String url = IMAGE_BASE_URL;
-        url += PATH;
         url += IMAGE_SIZE;
         url += film.getPosterPath();
         return url;

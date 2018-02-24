@@ -8,5 +8,5 @@ package io.github.slupik.data.film;
 
 public class FilmConnectionUtils {
     public static final String API_BASE_URL = "http://api.themoviedb.org/3/";
-    public static final String IMAGE_BASE_URL = "https://image.tmdb.org/";
+    public static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
 }
