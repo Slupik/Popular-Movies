@@ -3,6 +3,7 @@ package io.github.slupik.popularmovies.view.main;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,9 +24,6 @@ import io.github.slupik.popularmovies.domain.film.Film;
 import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
 import io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList;
 import io.github.slupik.popularmovies.view.mvp.presented.BaseActivity;
-
-import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-import static io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList.NUMBER_OF_FILMS_IN_ROW;
 
 public class MainActivity extends BaseActivity implements MainPresentedView {
 
@@ -78,15 +76,20 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
         if(mAdapter.getContext()==null) {
             mAdapter.setContext(this);
         }
-        RecyclerView.LayoutManager manager;
-        if(getResources().getConfiguration().orientation==ORIENTATION_LANDSCAPE) {
-            manager = new GridLayoutManager(this, NUMBER_OF_FILMS_IN_ROW*2);
-        } else {
-            manager = new GridLayoutManager(this, NUMBER_OF_FILMS_IN_ROW);
-        }
+        RecyclerView.LayoutManager manager = new GridLayoutManager(this, numberOfColumns());
         rvFilmList.setLayoutManager(manager);
         rvFilmList.setHasFixedSize(true);
         rvFilmList.setAdapter(mAdapter);
+    }
+
+    private static final int DEFAULT_POSTER_WIDTH = 500;
+    private int numberOfColumns() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        int nColumns = width / DEFAULT_POSTER_WIDTH;
+        if (nColumns < 2) return 2;
+        return nColumns;
     }
 
     @Override
