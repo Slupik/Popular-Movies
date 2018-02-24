@@ -23,6 +23,8 @@ public class FilmBean implements Film {
     private String overview;
     @SerializedName("backdrop_path")
     private String backdropPath;
+    @SerializedName("local_favourite")
+    private boolean favourite = false;
 
     @Override
     public Film setTitle(String title) {
@@ -88,5 +90,16 @@ public class FilmBean implements Film {
     @Override
     public String getOverview() {
         return overview;
+    }
+
+    @Override
+    public Film setFavourite(boolean isFavourite) {
+        this.favourite = isFavourite;
+        return this;
+    }
+
+    @Override
+    public boolean isFavourite() {
+        return favourite;
     }
 }

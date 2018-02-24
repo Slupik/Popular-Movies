@@ -24,4 +24,7 @@ public interface Film {
 
     Film setOverview(String overview);
     String getOverview();
+
+    Film setFavourite(boolean isFavourite);
+    boolean isFavourite();
 }

@@ -3,6 +3,7 @@ package io.github.slupik.popularmovies.view.detail;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ import io.github.slupik.popularmovies.view.mvp.presented.BaseActivity;
 
 import static io.github.slupik.data.film.FilmConnectionUtils.IMAGE_BASE_URL;
 
-public class DetailActivity extends BaseActivity {
+public class DetailActivity extends BaseActivity implements DetailPresentedView {
 
     public static final String BUNDLE_NAME_WITH_MOVIE_DATA = "movie_data";
     private static final String IMAGE_SIZE = TheMovieDbUtils.BackdropSizes.W_1280.CODE;
@@ -44,6 +45,9 @@ public class DetailActivity extends BaseActivity {
 
     @BindView(R.id.tv_title)
     TextView title;
+
+    @BindView(R.id.fab_favourite)
+    FloatingActionButton fbtnFavourite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,15 @@ public class DetailActivity extends BaseActivity {
         title.setText(film.getTitle());
         releaseDate.setText(film.getReleaseDate());
         userRating.setText(Double.toString(film.getVoteAverage()));
+        makeViewAsFavourite(film.isFavourite());
+    }
+
+    private void makeViewAsFavourite(boolean isFavourite) {
+        if(isFavourite) {
+            fbtnFavourite.setImageResource(R.drawable.favourite_star_is);
+        } else {
+            fbtnFavourite.setImageResource(R.drawable.favourite_star_not);
+        }
     }
 
     private String getImageUrl(Film film) {
