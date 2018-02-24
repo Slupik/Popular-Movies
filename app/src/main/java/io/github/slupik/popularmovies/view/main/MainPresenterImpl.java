@@ -69,12 +69,14 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
     @Override
     public void onFail(FilmDownloadError error) {
         Log.e(MainPresenterImpl.class.getName(), "Error while downloading: "+error.name());
+        page--;
         presented.errorWhileDownloading(error);
     }
 
     @Override
     public void onFail(Throwable error) {
         error.printStackTrace();
+        page--;
         presented.errorUnknownWhileDownloading();
     }
 }

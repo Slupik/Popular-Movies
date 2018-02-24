@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,9 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
     @BindView(R.id.rv_film_list)
     RecyclerView rvFilmList;
 
+    @BindView(R.id.btn_download_again)
+    Button btnDownloadAgain;
+
     @Inject
     MainPresenter presenter;
 
@@ -48,7 +53,18 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
                 .inject(this);
         presenter.onAttach(this);
 
+        setupDownloadingButton();
         setupRecyclerView();
+    }
+
+    private void setupDownloadingButton() {
+        btnDownloadAgain.setVisibility(View.GONE);
+        btnDownloadAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.downloadMoreData();
+            }
+        });
     }
 
     private void setupRecyclerView() {
@@ -92,6 +108,9 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
     @Override
     public void addFilms(List<Film> list) {
         mAdapter.addFilms(list);
+        if (list.size() > 0) {
+            btnDownloadAgain.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -102,18 +121,21 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
     @Override
     public void errorUnknownSortType() {
         showErrorDialog(R.string.connection_to_database_error_title, R.string.unknown_film_sort_type);
+        btnDownloadAgain.setVisibility(View.VISIBLE);
         addFilms(new ArrayList<Film>());
     }
 
     @Override
     public void errorWhileDownloading(FilmDownloadError error) {
         showErrorDialog(R.string.connection_to_database_error_title, R.string.connection_error_check_connection);
+        btnDownloadAgain.setVisibility(View.VISIBLE);
         addFilms(new ArrayList<Film>());
     }
 
     @Override
     public void errorUnknownWhileDownloading() {
         showErrorDialog(R.string.connection_to_database_error_title, R.string.connection_unknown_error);
+        btnDownloadAgain.setVisibility(View.VISIBLE);
         addFilms(new ArrayList<Film>());
     }
 }

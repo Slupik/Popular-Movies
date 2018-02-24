@@ -10,4 +10,5 @@
 	<string name="release_date_label">Release date</string>
 	<string name="user_rating">User rating</string>
 	<string name="plot_synopsis">A plot synopsis</string>
+	<string name="download_data_again">Download data again</string>
 </resources>
