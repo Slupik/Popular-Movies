@@ -24,6 +24,7 @@ import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
 import io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList;
 import io.github.slupik.popularmovies.view.mvp.presented.BaseActivity;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList.NUMBER_OF_FILMS_IN_ROW;
 
 public class MainActivity extends BaseActivity implements MainPresentedView {
@@ -77,7 +78,12 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
         if(mAdapter.getContext()==null) {
             mAdapter.setContext(this);
         }
-        RecyclerView.LayoutManager manager = new GridLayoutManager(this, NUMBER_OF_FILMS_IN_ROW);
+        RecyclerView.LayoutManager manager;
+        if(getResources().getConfiguration().orientation==ORIENTATION_LANDSCAPE) {
+            manager = new GridLayoutManager(this, NUMBER_OF_FILMS_IN_ROW*2);
+        } else {
+            manager = new GridLayoutManager(this, NUMBER_OF_FILMS_IN_ROW);
+        }
         rvFilmList.setLayoutManager(manager);
         rvFilmList.setHasFixedSize(true);
         rvFilmList.setAdapter(mAdapter);
