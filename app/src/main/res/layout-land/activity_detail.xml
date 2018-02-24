@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="io.github.slupik.popularmovies.view.detail.DetailActivity">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<android.support.constraint.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<ImageView
+				android:id="@+id/iv_backdrop"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="8dp"
+				android:layout_weight="1"
+				android:adjustViewBounds="true"
+				app:layout_constraintEnd_toStartOf="@+id/guideline"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:src="@android:drawable/ic_menu_view"/>
+
+			<android.support.constraint.ConstraintLayout
+				android:id="@+id/constraintLayout"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="16dp"
+				android:layout_marginStart="8dp"
+				android:layout_weight="1"
+				android:paddingBottom="16dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="@+id/guideline"
+				app:layout_constraintTop_toTopOf="parent">
+
+				<TextView
+					android:id="@+id/tv_title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="16dp"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="16dp"
+					android:textAppearance="@style/AppDetailTitle"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					tools:text="Movie title"/>
+
+				<TextView
+					android:id="@+id/textView4"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="8dp"
+					android:text="@string/user_rating"
+					android:textAppearance="@style/AppMovieDetailsLabel"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+
+				<TextView
+					android:id="@+id/tv_user_rating"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="8dp"
+					android:textAppearance="@style/AppMovieDetailsNormalText"
+					app:layout_constraintStart_toEndOf="@+id/textView4"
+					app:layout_constraintTop_toTopOf="@+id/textView4"
+					tools:text="5.91"/>
+
+				<TextView
+					android:id="@+id/textView6"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/release_date_label"
+					android:textAppearance="@style/AppMovieDetailsLabel"
+					app:layout_constraintStart_toStartOf="@+id/textView4"
+					app:layout_constraintTop_toTopOf="@+id/tv_release_date"/>
+
+				<TextView
+					android:id="@+id/tv_release_date"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="16dp"
+					android:textAppearance="@style/AppMovieDetailsNormalText"
+					app:layout_constraintStart_toEndOf="@+id/textView6"
+					app:layout_constraintTop_toBottomOf="@+id/tv_user_rating"
+					tools:text="2016-08-03"/>
+
+			</android.support.constraint.ConstraintLayout>
+
+			<android.support.constraint.Guideline
+				android:id="@+id/guideline"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				app:layout_constraintGuide_percent="0.5"/>
+
+			<TextView
+				android:id="@+id/tv_overview"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="16dp"
+				android:layout_marginStart="16dp"
+				android:layout_marginTop="8dp"
+				android:layout_weight="1"
+				android:textAppearance="@style/AppMovieDetailsNormalText"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/textView2"
+				tools:text="From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences."/>
+
+			<TextView
+				android:id="@+id/textView2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="16dp"
+				android:layout_marginStart="32dp"
+				android:layout_weight="1"
+				android:text="@string/plot_synopsis"
+				android:textAppearance="@style/AppMovieDetailsHeaderLabel"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/iv_backdrop"/>
+
+		</android.support.constraint.ConstraintLayout>
+
+	</LinearLayout>
+</ScrollView>
