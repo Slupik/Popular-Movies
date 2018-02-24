@@ -7,4 +7,7 @@
 	<string name="film_poster_content_description">Wait for load film title</string>
 	<string name="show_top_rated">Show top rated films</string>
 	<string name="show_popular">Show the most popular</string>
+	<string name="release_date_label">Release date</string>
+	<string name="user_rating">User rating</string>
+	<string name="plot_synopsis">A plot synopsis</string>
 </resources>

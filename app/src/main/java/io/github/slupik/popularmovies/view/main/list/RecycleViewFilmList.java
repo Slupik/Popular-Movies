@@ -1,6 +1,7 @@
 package io.github.slupik.popularmovies.view.main.list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.popularmovies.view.detail.DetailActivity;
 import io.github.slupik.popularmovies.view.main.MainPresenter;
 
 /**
@@ -37,16 +39,21 @@ public class RecycleViewFilmList extends RecyclerView.Adapter<ViewHolderFilm> {
 
     @Override
     public ViewHolderFilm onCreateViewHolder(ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
+        if(mContext==null) {
+            mContext = parent.getContext();
+        }
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.film_list_item, parent, SHOULD_ATTACH_TO_PARENT_PERMANENTLY_DEFAULT);
+        final ViewHolderFilm holder = new ViewHolderFilm(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notifyDataSetChanged();
+                Intent intent = new Intent(mContext, DetailActivity.class);
+                intent.putExtra(DetailActivity.BUNDLE_NAME_WITH_MOVIE_DATA, holder.getActualFilmAsString());
+                mContext.startActivity(intent);
             }
         });
-        return new ViewHolderFilm(view);
+        return holder;
     }
 
     @Override

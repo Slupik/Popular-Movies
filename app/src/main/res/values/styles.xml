@@ -8,4 +8,25 @@
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
 
+	<style name="AppDetailTitle" parent="android:TextAppearance">
+		<item name="android:textSize">@dimen/text_size_sandwich_headline</item>
+		<item name="android:textColor">@color/detail_text</item>
+	</style>
+
+	<style name="AppMovieDetailsLabel" parent="android:TextAppearance">
+		<item name="android:textSize">@dimen/text_size_sandwich_label</item>
+		<item name="android:textColor">@color/detail_text</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="AppMovieDetailsNormalText" parent="android:TextAppearance">
+		<item name="android:textSize">@dimen/text_size_sandwich_normal_text</item>
+		<item name="android:textColor">@color/detail_text</item>
+	</style>
+
+	<style name="AppMovieDetailsHeaderLabel" parent="android:TextAppearance">
+		<item name="android:textSize">@dimen/text_size_sandwich_header</item>
+		<item name="android:textColor">@color/detail_text</item>
+	</style>
+
 </resources>

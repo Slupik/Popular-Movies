@@ -15,9 +15,9 @@ import io.github.slupik.popularmovies.domain.film.Film;
  */
 
 @Module
-class GsonModule {
+public class GsonModule {
     @Provides
-    Gson gson(){
+    public Gson gson(){
         return new GsonBuilder()
                 .registerTypeAdapter(Film.class, new FilmDeserializer())
                 .setLenient()

@@ -1,54 +1,55 @@
 apply plugin: 'com.android.application'
 
 android {
-    def globalConfiguration = rootProject.extensions.getByName("ext")
+	def globalConfiguration = rootProject.extensions.getByName("ext")
 
-    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
-    defaultConfig {
-        minSdkVersion globalConfiguration["androidMinSdkVersion"]
-        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+	compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+	defaultConfig {
+		minSdkVersion globalConfiguration["androidMinSdkVersion"]
+		targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
 
-        applicationId globalConfiguration["applicationId"]
-        versionCode globalConfiguration["versionCode"]
-        versionName globalConfiguration["versionName"]
-        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+		applicationId globalConfiguration["applicationId"]
+		versionCode globalConfiguration["versionCode"]
+		versionName globalConfiguration["versionName"]
+		testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+	}
+	buildTypes {
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':domain')
-    implementation project(':device')
-    implementation project(':data')
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation project(':domain')
+	implementation project(':device')
+	implementation project(':data')
 
-    //Dependency injection - dagger
-    compile "com.google.dagger:dagger:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-    compile "com.google.dagger:dagger-android:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-    compile "com.google.dagger:dagger-android-support:$daggerVersion"
+	//Dependency injection - dagger
+	implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+	compile "com.google.dagger:dagger:$daggerVersion"
+	annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+	compile "com.google.dagger:dagger-android:$daggerVersion"
+	annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+	compile "com.google.dagger:dagger-android-support:$daggerVersion"
 
-    //Android view
-    compile "com.jakewharton:butterknife:$butterKnife"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
-    compile "com.android.support:recyclerview-v7:$appcompat"
+	//Android view
+	compile "com.jakewharton:butterknife:$butterKnife"
+	annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
+	compile "com.android.support:recyclerview-v7:$appcompat"
 
-    compile "com.squareup.picasso:picasso:$picassoVersion"
-    implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
+	compile "com.squareup.picasso:picasso:$picassoVersion"
+	implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
 
 //    Android compatibility stuff
-    implementation ("com.android.support:appcompat-v7:$appcompat")
+	implementation("com.android.support:appcompat-v7:$appcompat")
 
-    /*
+	/*
 		TESTS
 	 */
-    testImplementation "junit:junit:$junit"
-    androidTestImplementation "com.android.support.test:runner:$supportTestRunner"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoCore"
+	testImplementation "junit:junit:$junit"
+	androidTestImplementation "com.android.support.test:runner:$supportTestRunner"
+	androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoCore"
 }

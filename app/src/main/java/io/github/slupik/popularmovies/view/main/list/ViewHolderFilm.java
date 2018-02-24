@@ -7,11 +7,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.github.slupik.data.dagger.film.downloader.GsonModule;
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.domain.film.Film;
 import io.github.slupik.popularmovies.domain.film.downloader.themovie.TheMovieDbUtils;
@@ -30,6 +32,8 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
     private static final String IMAGE_SIZE = TheMovieDbUtils.PosterSizes.W_342.CODE;
     private static final int TIME_INTERVAL = 100;
     private static final int MAX_WAITING_TIME_FOR_POSTER = TIME_INTERVAL*20;
+
+    private Film actualFilm;
 
     @BindView(R.id.iv_film_list_item)
     ImageView ivPoster;
@@ -50,6 +54,7 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
     }
 
     void bind(final Context context, final Film film) {
+        actualFilm = film;
         ivPoster.post(new Runnable() {
             @Override
             public void run() {
@@ -130,5 +135,10 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
     private static final double RATIO_FOR_POSTER_HEIGHT = 1.5;
     private int getHeightOfPoster(int width) {
         return (int) (width*RATIO_FOR_POSTER_HEIGHT);
+    }
+
+    String getActualFilmAsString() {
+        Gson converter = new GsonModule().gson();
+        return converter.toJson(actualFilm);
     }
 }
