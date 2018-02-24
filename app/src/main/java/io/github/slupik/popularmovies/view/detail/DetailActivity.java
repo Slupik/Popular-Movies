@@ -1,5 +1,6 @@
 package io.github.slupik.popularmovies.view.detail;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -62,6 +63,7 @@ public class DetailActivity extends BaseActivity {
         return jsonConverter.fromJson(json, FilmBean.class);
     }
 
+    @SuppressLint("SetTextI18n")
     private void populateFields(final Film film) {
         Picasso.
                 with(getApplicationContext())
