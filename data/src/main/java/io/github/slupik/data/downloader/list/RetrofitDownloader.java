@@ -33,10 +33,10 @@ public interface RetrofitDownloader {
                                       @Query("language") String language);
 
     //@GET("movie/{movie_id}/reviews?api_key=<<api_key>>&language=en-US&page=1")
-//    @GET("movie/{movie_id}/reviews")
-//    Call<FilmListBean> getReviews(
-//                                    @Path("movie_id") String movieId,
-//                                    @Query("api_key") String apiKey,
-//                                    @Query("language") String language,
-//                                    @Query("page") int page);
+    @GET("movie/{movie_id}/reviews")
+    Call<FilmListBean> getReviews(
+                                    @Path("movie_id") String movieId,
+                                    @Query("api_key") String apiKey,
+                                    @Query("language") String language,
+                                    @Query("page") int page);
 }

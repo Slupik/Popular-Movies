@@ -1,6 +1,6 @@
 package io.github.slupik.data.downloader.list.review;
 
-import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownloader;
+import io.github.slupik.popularmovies.domain.downloader.list.review.ReviewListDownloader;
 
 /**
  * Created by Sebastian Witasik on 19.02.2018.
@@ -8,7 +8,7 @@ import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownlo
  * All rights reserved & copyright ©
  */
 
-public class RetrofitDownloadDataReviews implements FilmListDownloader.Data {
+public class RetrofitDownloadDataReviews implements ReviewListDownloader.Data {
     private int pageOfRanking = 1;
     private String language = "en-US";
     private String apiKey = "";
