@@ -1,5 +1,6 @@
 package io.github.slupik.popularmovies.view.detail;
 
+import io.github.slupik.popularmovies.domain.film.Film;
 import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
 
 /**
@@ -9,4 +10,6 @@ import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
  */
 
 interface DetailPresentedView extends PresentedView {
+    void makeViewAsFavourite(boolean isFavourite);
+    void populateFields(Film film);
 }

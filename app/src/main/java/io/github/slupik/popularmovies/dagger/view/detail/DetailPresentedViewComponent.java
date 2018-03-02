@@ -1,7 +1,6 @@
 package io.github.slupik.popularmovies.dagger.view.detail;
 
 import dagger.Component;
-import io.github.slupik.data.dagger.film.downloader.GsonModule;
 import io.github.slupik.popularmovies.view.detail.DetailActivity;
 
 /**
@@ -10,7 +9,7 @@ import io.github.slupik.popularmovies.view.detail.DetailActivity;
  * All rights reserved & copyright ©
  */
 
-@Component(modules = {GsonModule.class, FilmRepositoryModule.class})
+@Component(modules = {PresenterModule.class})
 public interface DetailPresentedViewComponent {
     void inject(DetailActivity activity);
 }
