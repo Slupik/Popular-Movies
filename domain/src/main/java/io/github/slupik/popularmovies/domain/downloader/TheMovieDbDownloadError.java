@@ -6,7 +6,7 @@ package io.github.slupik.popularmovies.domain.downloader;
  * All rights reserved & copyright ©
  */
 
-public enum FilmDownloadError {
+public enum TheMovieDbDownloadError {
     OTHER,
     UNKNOWN,
     WRONG_API_KEY,

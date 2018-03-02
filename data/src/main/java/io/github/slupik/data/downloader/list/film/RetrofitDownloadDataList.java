@@ -12,8 +12,6 @@ public class RetrofitDownloadDataList implements FilmListDownloader.Data {
     private int pageOfRanking = 1;
     private String language = "en-US";
     private String apiKey = "";
-    private String movieId;
-    private int pageOfReviews;
 
     public int getPageOfRanking() {
         return pageOfRanking;
@@ -40,22 +38,5 @@ public class RetrofitDownloadDataList implements FilmListDownloader.Data {
     public RetrofitDownloadDataList setApiKey(String apiKey) {
         this.apiKey = apiKey;
         return this;
-    }
-
-    public RetrofitDownloadDataList setMovieId(String movieId) {
-        this.movieId = movieId;
-        return this;
-    }
-
-    public String getMovieId() {
-        return movieId;
-    }
-
-    public void setPageOfReviews(int pageOfReviews) {
-        this.pageOfReviews = pageOfReviews;
-    }
-
-    public int getPageOfReviews() {
-        return pageOfReviews;
     }
 }

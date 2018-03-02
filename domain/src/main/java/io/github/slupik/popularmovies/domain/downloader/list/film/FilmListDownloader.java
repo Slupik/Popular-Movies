@@ -1,6 +1,6 @@
 package io.github.slupik.popularmovies.domain.downloader.list.film;
 
-import io.github.slupik.popularmovies.domain.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
 import io.github.slupik.popularmovies.domain.models.film.FilmList;
 
 /**
@@ -15,7 +15,7 @@ public interface FilmListDownloader<D extends FilmListDownloader.Data> {
 
     interface Callback {
         void onSuccess(FilmList data);
-        void onFail(FilmDownloadError error);
+        void onFail(TheMovieDbDownloadError error);
         void onFail(Throwable error);
     }
 

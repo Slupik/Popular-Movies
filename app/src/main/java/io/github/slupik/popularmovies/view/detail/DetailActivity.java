@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -45,11 +46,16 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
     @BindView(R.id.fab_favourite)
     FloatingActionButton fbtnFavourite;
 
+    @BindView(R.id.tv_trailers_label)
+    TextView tvTrailersLbl;
+
+    @BindView(R.id.ll_trailer_list)
+    LinearLayout llTrailerList;
+
     @Inject
     DetailPresenter presenter;
 
     //TODO 3 add section for reviews (/movie/{id}/reviews)
-    //TODO 4 add section for films (/movie/{id}/videos)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +89,11 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
         title.setText(film.getTitle());
         releaseDate.setText(film.getReleaseDate());
         userRating.setText(Double.toString(film.getVoteAverage()));
+    }
+
+    @Override
+    public void addTrailerView(View view) {
+        llTrailerList.addView(view);
     }
 
     private String getImageUrl(Film film) {

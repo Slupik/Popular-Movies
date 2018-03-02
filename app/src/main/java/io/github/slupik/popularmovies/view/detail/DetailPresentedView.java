@@ -1,5 +1,7 @@
 package io.github.slupik.popularmovies.view.detail;
 
+import android.view.View;
+
 import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
 
@@ -12,4 +14,5 @@ import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
 interface DetailPresentedView extends PresentedView {
     void makeViewAsFavourite(boolean isFavourite);
     void populateFields(Film film);
+    void addTrailerView(View view);
 }

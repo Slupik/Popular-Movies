@@ -1,6 +1,7 @@
 package io.github.slupik.data.downloader.list;
 
 import io.github.slupik.data.models.film.FilmListBean;
+import io.github.slupik.data.models.trailer.TrailerListBean;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -27,14 +28,15 @@ public interface RetrofitDownloader {
 
     //@GET("movie/{movie_id}/videos?api_key=<<api_key>>&language=en-US")
     @GET("movie/{movie_id}/videos")
-    Call<FilmListBean> getTrailers(@Query("api_key") String apiKey,
-                                        @Query("language") String language,
-                                        @Path("movie_id") String movieId);
+    Call<TrailerListBean> getTrailers(@Path("movie_id") String movieId,
+                                      @Query("api_key") String apiKey,
+                                      @Query("language") String language);
 
     //@GET("movie/{movie_id}/reviews?api_key=<<api_key>>&language=en-US&page=1")
-    @GET("movie/{movie_id}/reviews")
-    Call<FilmListBean> getReviews(@Query("api_key") String apiKey,
-                                        @Query("language") String language,
-                                        @Query("page") int page,
-                                        @Path("movie_id") String movieId);
+//    @GET("movie/{movie_id}/reviews")
+//    Call<FilmListBean> getReviews(
+//                                    @Path("movie_id") String movieId,
+//                                    @Query("api_key") String apiKey,
+//                                    @Query("language") String language,
+//                                    @Query("page") int page);
 }

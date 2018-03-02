@@ -1,7 +1,7 @@
 package io.github.slupik.popularmovies.domain.downloader.list.trailer;
 
-import io.github.slupik.popularmovies.domain.downloader.FilmDownloadError;
-import io.github.slupik.popularmovies.domain.models.film.FilmList;
+import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
+import io.github.slupik.popularmovies.domain.models.trailer.TrailerList;
 
 /**
  * Created by Sebastian Witasik on 17.02.2018.
@@ -13,8 +13,8 @@ public interface TrailerListDownloader<D extends TrailerListDownloader.Data> {
     void downloadTrailers(Callback callback, D data);
 
     interface Callback {
-        void onSuccess(FilmList data);
-        void onFail(FilmDownloadError error);
+        void onSuccess(TrailerList data);
+        void onFail(TheMovieDbDownloadError error);
         void onFail(Throwable error);
     }
 

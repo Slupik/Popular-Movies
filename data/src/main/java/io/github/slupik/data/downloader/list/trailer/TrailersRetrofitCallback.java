@@ -1,11 +1,10 @@
-package io.github.slupik.data.downloader.list.film;
+package io.github.slupik.data.downloader.list.trailer;
 
 import android.support.annotation.NonNull;
 
-import io.github.slupik.data.models.film.FilmListBean;
-import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownloader;
+import io.github.slupik.data.models.trailer.TrailerListBean;
 import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
-import io.github.slupik.popularmovies.domain.models.film.FilmList;
+import io.github.slupik.popularmovies.domain.models.trailer.TrailerList;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -15,17 +14,17 @@ import retrofit2.Response;
  * All rights reserved & copyright ©
  */
 
-class FilmListRetrofitCallback implements retrofit2.Callback<FilmListBean> {
-    private FilmListDownloader.Callback callback;
+class TrailersRetrofitCallback implements retrofit2.Callback<TrailerListBean> {
+    private TrailersRetrofitDownloader.Callback callback;
 
-    FilmListRetrofitCallback(FilmListDownloader.Callback callback) {
+    TrailersRetrofitCallback(TrailersRetrofitDownloader.Callback callback) {
         this.callback = callback;
     }
 
     @Override
-    public void onResponse(@NonNull Call<FilmListBean> call, @NonNull Response<FilmListBean> response) {
+    public void onResponse(@NonNull Call<TrailerListBean> call, @NonNull Response<TrailerListBean> response) {
         if(response.isSuccessful()) {
-            FilmList body = response.body();
+            TrailerList body = response.body();
             if(body!=null){
                 callback.onSuccess(body);
             } else {
@@ -37,7 +36,7 @@ class FilmListRetrofitCallback implements retrofit2.Callback<FilmListBean> {
     }
 
     @Override
-    public void onFailure(@NonNull Call<FilmListBean> call, @NonNull Throwable t) {
+    public void onFailure(@NonNull Call<TrailerListBean> call, @NonNull Throwable t) {
         callback.onFail(t);
     }
 }

@@ -3,6 +3,7 @@ package io.github.slupik.data.dagger.film.downloader;
 import com.google.gson.Gson;
 
 import dagger.Component;
+import io.github.slupik.data.downloader.list.RetrofitDownloader;
 import io.github.slupik.data.downloader.list.film.FilmListRetrofitDownloader;
 
 /**
@@ -16,4 +17,5 @@ public interface FilmRetrofitDownloaderComponent {
     void inject(FilmListRetrofitDownloader downloader);
 
     Gson getGson();
+    RetrofitDownloader getDownloader();
 }

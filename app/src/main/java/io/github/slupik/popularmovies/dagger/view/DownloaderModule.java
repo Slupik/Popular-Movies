@@ -3,6 +3,7 @@ package io.github.slupik.popularmovies.dagger.view;
 import dagger.Module;
 import dagger.Provides;
 import io.github.slupik.data.downloader.list.film.FilmListRetrofitDownloader;
+import io.github.slupik.data.downloader.list.trailer.TrailersRetrofitDownloader;
 import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownloader;
 
 /**
@@ -13,7 +14,12 @@ import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownlo
 @Module
 public class DownloaderModule {
     @Provides
-    public FilmListDownloader getDownloader(){
+    public FilmListDownloader getListDownloader(){
         return new FilmListRetrofitDownloader();
+    }
+
+    @Provides
+    public TrailersRetrofitDownloader getTrailerDownloader(){
+        return new TrailersRetrofitDownloader();
     }
 }

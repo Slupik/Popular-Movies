@@ -20,7 +20,7 @@ import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.main.DaggerMainPresenterViewComponent;
 import io.github.slupik.popularmovies.domain.models.film.Film;
-import io.github.slupik.popularmovies.domain.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
 import io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList;
 import io.github.slupik.popularmovies.view.mvp.presented.BaseActivity;
 
@@ -133,7 +133,7 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
     }
 
     @Override
-    public void errorWhileDownloading(FilmDownloadError error) {
+    public void errorWhileDownloading(TheMovieDbDownloadError error) {
         showErrorDialog(R.string.connection_to_database_error_title, R.string.connection_error_check_connection);
         btnDownloadAgain.setVisibility(View.VISIBLE);
         addFilms(new ArrayList<Film>());

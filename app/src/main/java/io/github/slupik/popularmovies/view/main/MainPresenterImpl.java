@@ -9,7 +9,7 @@ import io.github.slupik.data.downloader.list.film.RetrofitDownloadDataList;
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.dagger.view.main.DaggerPresenterComponent;
 import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownloader;
-import io.github.slupik.popularmovies.domain.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
 import io.github.slupik.popularmovies.domain.models.film.FilmList;
 import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
 
@@ -29,6 +29,7 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
     public MainPresenterImpl(Context context) {
         super(context);
         DaggerPresenterComponent.builder().build().inject(this);
+        //TODO move this boilerplate to dagger
         String apiKey = context.getString(R.string.key_themoviedb);
         mDownloadData.setApiKey(apiKey);
     }
@@ -67,7 +68,7 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
     }
 
     @Override
-    public void onFail(FilmDownloadError error) {
+    public void onFail(TheMovieDbDownloadError error) {
         Log.e(MainPresenterImpl.class.getName(), "Error while downloading: "+error.name());
         page--;
         presented.errorWhileDownloading(error);
