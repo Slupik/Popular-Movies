@@ -15,9 +15,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.github.slupik.data.database.movies.MovieRepository;
 import io.github.slupik.data.film.FilmBean;
 import io.github.slupik.popularmovies.R;
+import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.detail.DaggerDetailPresentedViewComponent;
 import io.github.slupik.popularmovies.domain.film.Film;
 import io.github.slupik.popularmovies.domain.film.SavedFilm;
@@ -31,9 +31,6 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
 
     public static final String BUNDLE_NAME_WITH_MOVIE_DATA = "movie_data";
     private static final String IMAGE_SIZE = TheMovieDbUtils.BackdropSizes.W_1280.CODE;
-
-    @Inject
-    Gson jsonConverter;
 
     @BindView(R.id.iv_backdrop)
     ImageView image;
@@ -53,8 +50,13 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
     @BindView(R.id.fab_favourite)
     FloatingActionButton fbtnFavourite;
 
+    @Inject
+    FilmRepository repository;
+
+    @Inject
+    Gson jsonConverter;
+
     private boolean isFavourite = false;
-    private FilmRepository repository;
 
     //TODO 2 apply MVP
     //TODO 3 add section for reviews (/movie/{id}/reviews)
@@ -64,10 +66,10 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-        DaggerDetailPresentedViewComponent.builder().build().inject(this);
-
-        //TODO 1 move to dagger
-        repository = new MovieRepository(getApplicationContext());
+        DaggerDetailPresentedViewComponent
+                .builder()
+                .contextModule(new ContextModule(this))
+                .build().inject(this);
 
         final Film film = getInitData();
         populateFields(film);

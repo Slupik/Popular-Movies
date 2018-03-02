@@ -10,7 +10,7 @@ import io.github.slupik.popularmovies.view.detail.DetailActivity;
  * All rights reserved & copyright ©
  */
 
-@Component(modules = GsonModule.class)
+@Component(modules = {GsonModule.class, FilmRepositoryModule.class})
 public interface DetailPresentedViewComponent {
     void inject(DetailActivity activity);
 }
