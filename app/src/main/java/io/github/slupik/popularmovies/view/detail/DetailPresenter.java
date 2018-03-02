@@ -12,6 +12,6 @@ import io.github.slupik.popularmovies.view.mvp.presenter.Presenter;
  */
 
 public interface DetailPresenter extends Presenter<DetailPresentedView> {
-    void readIntent(Intent intent);
+    void processIntent(Intent intent);
     void onFavouriteAction(View view);
 }

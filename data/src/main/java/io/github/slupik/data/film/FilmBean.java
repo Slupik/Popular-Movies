@@ -25,6 +25,8 @@ public class FilmBean implements Film {
     private String backdropPath;
     @SerializedName("id")
     private int onlineId = -1;
+    @SerializedName("favourite")
+    private boolean favourite = false;
 
     private byte[] backdropImage;
     private byte[] posterImage;
@@ -126,5 +128,16 @@ public class FilmBean implements Film {
     @Override
     public byte[] getBackdropImage() {
         return backdropImage;
+    }
+
+    @Override
+    public Film setFavourite(boolean isFavourite) {
+        this.favourite = isFavourite;
+        return this;
+    }
+
+    @Override
+    public boolean isFavourite() {
+        return favourite;
     }
 }

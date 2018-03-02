@@ -61,7 +61,7 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
                 .build().inject(this);
 
         presenter.onAttach(this);
-        presenter.readIntent(getIntent());
+        presenter.processIntent(getIntent());
 
         fbtnFavourite.setOnClickListener(new View.OnClickListener() {
                  @Override

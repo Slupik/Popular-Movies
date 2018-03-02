@@ -33,4 +33,7 @@ public interface Film {
 
     Film setBackdropImage(byte[] image);
     byte[] getBackdropImage();
+
+    Film setFavourite(boolean isFavourite);
+    boolean isFavourite();
 }

@@ -32,7 +32,6 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
     @Inject
     Gson jsonConverter;
 
-    private boolean isFavourite = false;
     private Film film;
 
     public DetailPresenterImpl(Context context) {
@@ -41,7 +40,7 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
     }
 
     @Override
-    public void readIntent(Intent intent) {
+    public void processIntent(Intent intent) {
         film = getFilmFromData(intent);
         presented.populateFields(film);
         makeViewAsFavourite(isFavouriteFilm(film));
@@ -54,7 +53,7 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
 
     @Override
     public void onFavouriteAction(View view) {
-        if(isFavourite) {
+        if(film.isFavourite()) {
             SavedFilm savedFilm = repository.getFilm(film);
             if(savedFilm!=null) {
                 repository.deleteFilm(savedFilm);
@@ -67,7 +66,7 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
     }
 
     private void makeViewAsFavourite(boolean isFavourite) {
-        this.isFavourite = isFavourite;
+        film.setFavourite(isFavourite);
         presented.makeViewAsFavourite(isFavourite);
     }
 
