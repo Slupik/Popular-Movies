@@ -85,7 +85,6 @@ public class RecycleViewFilmList extends RecyclerView.Adapter<ViewHolderFilm> {
             }
             downloading = true;
         }
-        //In future to uncomment
         mPresenter.downloadMoreData();
     }
 

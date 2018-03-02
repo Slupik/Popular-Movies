@@ -2,9 +2,8 @@ package io.github.slupik.data.downloader.list.review;
 
 import android.support.annotation.NonNull;
 
-import io.github.slupik.data.models.film.FilmListBean;
+import io.github.slupik.data.models.review.ReviewListBean;
 import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
-import io.github.slupik.popularmovies.domain.models.film.FilmList;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -14,7 +13,7 @@ import retrofit2.Response;
  * All rights reserved & copyright ©
  */
 
-class ReviewsRetrofitCallback implements retrofit2.Callback<FilmListBean> {
+class ReviewsRetrofitCallback implements retrofit2.Callback<ReviewListBean> {
     private ReviewsRetrofitDownloader.Callback callback;
 
     ReviewsRetrofitCallback(ReviewsRetrofitDownloader.Callback callback) {
@@ -22,9 +21,9 @@ class ReviewsRetrofitCallback implements retrofit2.Callback<FilmListBean> {
     }
 
     @Override
-    public void onResponse(@NonNull Call<FilmListBean> call, @NonNull Response<FilmListBean> response) {
+    public void onResponse(@NonNull Call<ReviewListBean> call, @NonNull Response<ReviewListBean> response) {
         if(response.isSuccessful()) {
-            FilmList body = response.body();
+            ReviewListBean body = response.body();
             if(body!=null){
                 callback.onSuccess(body);
             } else {
@@ -36,7 +35,7 @@ class ReviewsRetrofitCallback implements retrofit2.Callback<FilmListBean> {
     }
 
     @Override
-    public void onFailure(@NonNull Call<FilmListBean> call, @NonNull Throwable t) {
+    public void onFailure(@NonNull Call<ReviewListBean> call, @NonNull Throwable t) {
         callback.onFail(t);
     }
 }

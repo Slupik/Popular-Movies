@@ -8,6 +8,8 @@ import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
+import io.github.slupik.data.downloader.list.review.RetrofitDownloadDataReviews;
+import io.github.slupik.data.downloader.list.review.ReviewsRetrofitDownloader;
 import io.github.slupik.data.downloader.list.trailer.RetrofitDownloadDataTrailers;
 import io.github.slupik.data.downloader.list.trailer.TrailersRetrofitDownloader;
 import io.github.slupik.data.models.film.FilmBean;
@@ -15,9 +17,11 @@ import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.detail.DaggerDetailPresenterComponent;
 import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
+import io.github.slupik.popularmovies.domain.downloader.list.review.ReviewListDownloader;
 import io.github.slupik.popularmovies.domain.downloader.list.trailer.TrailerListDownloader;
 import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.domain.models.repository.FilmRepository;
+import io.github.slupik.popularmovies.domain.models.review.ReviewList;
 import io.github.slupik.popularmovies.domain.models.trailer.Trailer;
 import io.github.slupik.popularmovies.domain.models.trailer.TrailerList;
 import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
@@ -30,7 +34,7 @@ import static io.github.slupik.popularmovies.view.detail.DetailActivity.BUNDLE_N
  * All rights reserved & copyright ©
  */
 
-public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> implements DetailPresenter, TrailerListDownloader.Callback {
+public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> implements DetailPresenter, TrailerListDownloader.Callback, ReviewListDownloader.Callback {
 
     @Inject
     FilmRepository repository;
@@ -39,11 +43,15 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
     Gson jsonConverter;
 
     @Inject
-    TrailersRetrofitDownloader mDownloader;
+    TrailersRetrofitDownloader mTrailersDownloader;
 
-//    private int reviewsPage = 1;
+    @Inject
+    ReviewsRetrofitDownloader mReviewsDownloader;
+
     private RetrofitDownloadDataTrailers mDownloadDataTrailers = new RetrofitDownloadDataTrailers();
-//    private RetrofitDownloadDataTrailers mDownloadDataReviews = new RetrofitDownloadDataTrailers();
+    private RetrofitDownloadDataReviews mDownloadDataReviews = new RetrofitDownloadDataReviews();
+    private int reviewsPage = 1;
+    private int maxReviewsPages = 1;
 
     private Film film;
 
@@ -52,6 +60,7 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
         DaggerDetailPresenterComponent.builder().contextModule(new ContextModule(context)).build().inject(this);
         String apiKey = context.getString(R.string.key_themoviedb);
         mDownloadDataTrailers.setApiKey(apiKey);
+        mDownloadDataReviews.setApiKey(apiKey);
     }
 
     @Override
@@ -64,7 +73,7 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
     }
 
     private void downloadTrailers() {
-        mDownloader.downloadTrailers(this, mDownloadDataTrailers);
+        mTrailersDownloader.downloadTrailers(this, mDownloadDataTrailers);
     }
 
     private Film getFilmFromData(Intent intent) {
@@ -83,6 +92,22 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
         }
     }
 
+    @Override
+    public void downloadMoreReviews(String id) {
+        if(reviewsPage>maxReviewsPages){
+            return;
+        }
+        reviewsPage++;
+        mDownloadDataReviews.setMovieId(id);
+        mDownloadDataReviews.setPageOfReviews(reviewsPage);
+        mReviewsDownloader.downloadReviews(this, mDownloadDataReviews);
+    }
+
+    @Override
+    public Film getFilm() {
+        return film;
+    }
+
     private void makeViewAsFavourite(boolean isFavourite) {
         film.setFavourite(isFavourite);
         presented.makeViewAsFavourite(isFavourite);
@@ -98,6 +123,12 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
             View view = new TrailerView(trailer, context).getView();
             presented.addTrailerView(view);
         }
+    }
+
+    @Override
+    public void onSuccess(ReviewList data) {
+        presented.addReviews(data);
+        maxReviewsPages = data.getTotalPages();
     }
 
     @Override

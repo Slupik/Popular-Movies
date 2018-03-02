@@ -9,20 +9,10 @@ import io.github.slupik.popularmovies.domain.downloader.list.review.ReviewListDo
  */
 
 public class RetrofitDownloadDataReviews implements ReviewListDownloader.Data {
-    private int pageOfRanking = 1;
     private String language = "en-US";
-    private String apiKey = "";
-    private String movieId;
-    private int pageOfReviews;
-
-    public int getPageOfRanking() {
-        return pageOfRanking;
-    }
-
-    public RetrofitDownloadDataReviews setPageOfRanking(int page) {
-        this.pageOfRanking = page;
-        return this;
-    }
+    private String apiKey = "apiKey";
+    private String movieId = "-1";
+    private int pageOfReviews = 1;
 
     public String getLanguage() {
         return language;

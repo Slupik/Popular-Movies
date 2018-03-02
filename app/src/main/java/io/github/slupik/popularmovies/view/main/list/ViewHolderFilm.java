@@ -29,8 +29,8 @@ import static io.github.slupik.data.downloader.FilmConnectionUtils.IMAGE_BASE_UR
 class ViewHolderFilm extends RecyclerView.ViewHolder {
 
     private static final String IMAGE_SIZE = TheMovieDbUtils.PosterSizes.W_185.CODE;
-    private static final int TIME_INTERVAL = 100;
-    private static final int MAX_WAITING_TIME_FOR_POSTER = TIME_INTERVAL*20;
+    private static final int TIME_OF_WAIT_FOR_LOAD_INTERVAL = 100;
+    private static final int MAX_WAITING_TIME_FOR_POSTER = TIME_OF_WAIT_FOR_LOAD_INTERVAL *20;
 
     private Film actualFilm;
 
@@ -88,11 +88,11 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
                 int totalTime = 0;
                 while(ivPoster.getWidth()==0 && MAX_WAITING_TIME_FOR_POSTER>totalTime){
                     try {
-                        Thread.sleep(TIME_INTERVAL);
+                        Thread.sleep(TIME_OF_WAIT_FOR_LOAD_INTERVAL);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    totalTime += TIME_INTERVAL;
+                    totalTime += TIME_OF_WAIT_FOR_LOAD_INTERVAL;
                 }
             }
         }).start();

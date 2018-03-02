@@ -3,6 +3,8 @@ package io.github.slupik.popularmovies.view.detail;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,13 +19,17 @@ import butterknife.ButterKnife;
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.detail.DaggerDetailPresentedViewComponent;
-import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.domain.downloader.themovie.TheMovieDbUtils;
+import io.github.slupik.popularmovies.domain.models.film.Film;
+import io.github.slupik.popularmovies.domain.models.review.ReviewList;
+import io.github.slupik.popularmovies.view.detail.list.RecyclerViewReviewList;
 import io.github.slupik.popularmovies.view.mvp.presented.BaseActivity;
 
 import static io.github.slupik.data.downloader.FilmConnectionUtils.IMAGE_BASE_URL;
 
 public class DetailActivity extends BaseActivity implements DetailPresentedView {
+
+    private static final boolean TEST_UX = true;
 
     public static final String BUNDLE_NAME_WITH_MOVIE_DATA = "movie_data";
     private static final String IMAGE_SIZE = TheMovieDbUtils.BackdropSizes.W_1280.CODE;
@@ -49,13 +55,20 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
     @BindView(R.id.tv_trailers_label)
     TextView tvTrailersLbl;
 
+    @BindView(R.id.tv_reviews_label)
+    TextView tvReviewsLbl;
+
     @BindView(R.id.ll_trailer_list)
     LinearLayout llTrailerList;
+
+    @BindView(R.id.rv_reviews_list)
+    RecyclerView rvReviewList;
 
     @Inject
     DetailPresenter presenter;
 
-    //TODO 3 add section for reviews (/movie/{id}/reviews)
+    private RecyclerViewReviewList mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +89,24 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
                  }
              }
         );
+        setupRecyclerView();
+    }
+
+    private void setupRecyclerView() {
+        if(TEST_UX) {
+            mAdapter = FakePresenterForUXTest.initRecycleView(this.getApplicationContext());
+        } else {
+            mAdapter = new RecyclerViewReviewList(presenter);
+            mAdapter.loadMoreData();
+        }
+
+        if(mAdapter.getContext()==null) {
+            mAdapter.setContext(this);
+        }
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+        rvReviewList.setLayoutManager(manager);
+        rvReviewList.setHasFixedSize(true);
+        rvReviewList.setAdapter(mAdapter);
     }
 
     @Override
@@ -94,6 +125,11 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
     @Override
     public void addTrailerView(View view) {
         llTrailerList.addView(view);
+    }
+
+    @Override
+    public void addReviews(ReviewList data) {
+
     }
 
     private String getImageUrl(Film film) {
