@@ -12,7 +12,6 @@ import io.github.slupik.data.film.FilmBean;
 import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.detail.DaggerDetailPresenterComponent;
 import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.SavedFilm;
 import io.github.slupik.popularmovies.domain.film.database.FilmRepository;
 import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
 
@@ -54,10 +53,7 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
     @Override
     public void onFavouriteAction(View view) {
         if(film.isFavourite()) {
-            SavedFilm savedFilm = repository.getFilm(film);
-            if(savedFilm!=null) {
-                repository.deleteFilm(savedFilm);
-            }
+            repository.deleteFilm(film);
             makeViewAsFavourite(false);
         } else {
             repository.addFilm(film);

@@ -5,10 +5,17 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.slupik.data.film.SavedFilmBean;
-import io.github.slupik.popularmovies.domain.film.SavedFilm;
+import io.github.slupik.data.film.FilmBean;
+import io.github.slupik.popularmovies.domain.film.Film;
 
-import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.*;
+import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_BACKDROP_PATH;
+import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_IMAGE_POSTER;
+import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_ONLINE_ID;
+import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_OVERVIEW;
+import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_POSTER_PATH;
+import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_RELEASE_DATE;
+import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_TITLE;
+import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_VOTE_AVERAGE;
 
 /**
  * Created by Sebastian Witasik on 01.03.2018.
@@ -20,8 +27,8 @@ class CursorConverter {
     static final int TRUE = 1;
     static final int FALSE = 0;
 
-    static List<SavedFilm> convertToFilmList(Cursor cursor) {
-        List<SavedFilm> list = new ArrayList<>();
+    static List<Film> convertToFilmList(Cursor cursor) {
+        List<Film> list = new ArrayList<>();
         if(cursor==null) return list;
         try {
             cursor.moveToFirst();
@@ -36,8 +43,8 @@ class CursorConverter {
         return list;
     }
 
-    static SavedFilm convertToFilm(Cursor cursor) {
-        SavedFilm value = new SavedFilmBean();
+    static Film convertToFilm(Cursor cursor) {
+        Film value = new FilmBean();
         value.setTitle(cursor.getString(
                 cursor.getColumnIndex(COLUMN_TITLE)
         ));
@@ -64,10 +71,6 @@ class CursorConverter {
         ));
         value.setPosterImage(cursor.getBlob(
                 cursor.getColumnIndex(COLUMN_IMAGE_POSTER)
-        ));
-
-        value.setLocalId(cursor.getInt(
-                cursor.getColumnIndex(_ID)
         ));
         return value;
     }

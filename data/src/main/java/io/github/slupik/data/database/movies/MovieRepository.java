@@ -9,7 +9,6 @@ import android.net.Uri;
 import java.util.List;
 
 import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.SavedFilm;
 import io.github.slupik.popularmovies.domain.film.database.FilmRepository;
 
 import static android.provider.BaseColumns._ID;
@@ -22,7 +21,6 @@ import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COL
 import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_RELEASE_DATE;
 import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_TITLE;
 import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_VOTE_AVERAGE;
-import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.CONTENT_ONLINE_URI;
 import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.CONTENT_URI;
 
 /**
@@ -48,30 +46,12 @@ public class MovieRepository implements FilmRepository {
                 null,
                 null,
                 COLUMN_TITLE);
-        List<SavedFilm> list = CursorConverter.convertToFilmList(cursor);
+        List<Film> list = CursorConverter.convertToFilmList(cursor);
         return list.size()>0;
     }
 
     @Override
-    public SavedFilm getFilm(Film film) {
-        String stringId = Integer.toString(film.getOnlineId());
-        Uri uri = CONTENT_ONLINE_URI;
-        uri = uri.buildUpon().appendPath(stringId).build();
-        Cursor cursor = getContentResolver().query(uri,
-                null,
-                null,
-                null,
-                COLUMN_TITLE);
-        List<SavedFilm> list = CursorConverter.convertToFilmList(cursor);
-        if(list.size()>0){
-            return list.get(0);
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public List<SavedFilm> getFavouriteList() {
+    public List<Film> getFavouriteList() {
         Cursor cursor = getContentResolver().query(CONTENT_URI,
                 null,
                 null,
@@ -97,8 +77,8 @@ public class MovieRepository implements FilmRepository {
     }
 
     @Override
-    public void deleteFilm(SavedFilm film) {
-        String stringId = Integer.toString(film.getLocalId());
+    public void deleteFilm(Film film) {
+        String stringId = Integer.toString(film.getOnlineId());
         Uri uri = CONTENT_URI;
         uri = uri.buildUpon().appendPath(stringId).build();
         getContentResolver().delete(uri,
