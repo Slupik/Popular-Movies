@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,10 +15,13 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.github.slupik.data.database.movies.MovieRepository;
 import io.github.slupik.data.film.FilmBean;
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.dagger.view.detail.DaggerDetailPresentedViewComponent;
 import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.popularmovies.domain.film.SavedFilm;
+import io.github.slupik.popularmovies.domain.film.database.FilmRepository;
 import io.github.slupik.popularmovies.domain.film.downloader.themovie.TheMovieDbUtils;
 import io.github.slupik.popularmovies.view.mvp.presented.BaseActivity;
 
@@ -49,6 +53,12 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
     @BindView(R.id.fab_favourite)
     FloatingActionButton fbtnFavourite;
 
+    private boolean isFavourite = false;
+    private FilmRepository repository;
+
+    //TODO 2 apply MVP
+    //TODO 3 add section for reviews (/movie/{id}/reviews)
+    //TODO 4 add section for films (/movie/{id}/videos)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +66,28 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
         ButterKnife.bind(this);
         DaggerDetailPresentedViewComponent.builder().build().inject(this);
 
-        Film film = getInitData();
+        //TODO 1 move to dagger
+        repository = new MovieRepository(getApplicationContext());
+
+        final Film film = getInitData();
         populateFields(film);
+
+        fbtnFavourite.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     if(isFavourite) {
+                         SavedFilm savedFilm = repository.getFilm(film);
+                         if(savedFilm!=null) {
+                             repository.deleteFilm(savedFilm);
+                         }
+                         makeViewAsFavourite(false);
+                     } else {
+                         repository.addFilm(film);
+                         makeViewAsFavourite(true);
+                     }
+                 }
+             }
+        );
     }
 
     private Film getInitData() {
@@ -76,10 +106,15 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
         title.setText(film.getTitle());
         releaseDate.setText(film.getReleaseDate());
         userRating.setText(Double.toString(film.getVoteAverage()));
-        makeViewAsFavourite(film.isFavourite());
+        makeViewAsFavourite(isFavouriteFilm(film));
+    }
+
+    private boolean isFavouriteFilm(Film film) {
+        return repository.isFavourite(film);
     }
 
     private void makeViewAsFavourite(boolean isFavourite) {
+        this.isFavourite = isFavourite;
         if(isFavourite) {
             fbtnFavourite.setImageResource(R.drawable.favourite_star_is);
         } else {

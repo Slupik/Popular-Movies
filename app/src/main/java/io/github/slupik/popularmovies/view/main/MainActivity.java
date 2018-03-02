@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
 
     private RecycleViewFilmList mAdapter;
 
+    //TODO 5 add favourite sort option
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

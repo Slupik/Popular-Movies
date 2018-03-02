@@ -23,8 +23,11 @@ public class FilmBean implements Film {
     private String overview;
     @SerializedName("backdrop_path")
     private String backdropPath;
-    @SerializedName("local_favourite")
-    private boolean favourite = false;
+    @SerializedName("id")
+    private int onlineId = -1;
+
+    private byte[] backdropImage;
+    private byte[] posterImage;
 
     @Override
     public Film setTitle(String title) {
@@ -93,13 +96,35 @@ public class FilmBean implements Film {
     }
 
     @Override
-    public Film setFavourite(boolean isFavourite) {
-        this.favourite = isFavourite;
+    public Film setOnlineId(int id) {
+        this.onlineId = id;
         return this;
     }
 
     @Override
-    public boolean isFavourite() {
-        return favourite;
+    public int getOnlineId() {
+        return onlineId;
+    }
+
+    @Override
+    public Film setPosterImage(byte[] image) {
+        posterImage = image;
+        return this;
+    }
+
+    @Override
+    public byte[] getPosterImage() {
+        return posterImage;
+    }
+
+    @Override
+    public Film setBackdropImage(byte[] image) {
+        backdropImage = image;
+        return this;
+    }
+
+    @Override
+    public byte[] getBackdropImage() {
+        return backdropImage;
     }
 }

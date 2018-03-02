@@ -20,6 +20,10 @@
 		</activity>
 		<activity android:name=".view.detail.DetailActivity">
 		</activity>
+		<provider
+			android:authorities="io.github.slupik.popularmovies"
+			android:name="io.github.slupik.data.database.movies.MovieContentProvider"
+			android:exported="false"/>
 	</application>
 
 </manifest>

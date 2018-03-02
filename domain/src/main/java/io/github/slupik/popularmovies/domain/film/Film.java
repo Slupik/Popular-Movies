@@ -25,6 +25,12 @@ public interface Film {
     Film setOverview(String overview);
     String getOverview();
 
-    Film setFavourite(boolean isFavourite);
-    boolean isFavourite();
+    Film setOnlineId(int id);
+    int getOnlineId();
+
+    Film setPosterImage(byte[] image);
+    byte[] getPosterImage();
+
+    Film setBackdropImage(byte[] image);
+    byte[] getBackdropImage();
 }
