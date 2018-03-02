@@ -6,7 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.github.slupik.data.database.movies.MovieRepository;
 import io.github.slupik.popularmovies.dagger.view.ContextModule;
-import io.github.slupik.popularmovies.domain.film.database.FilmRepository;
+import io.github.slupik.popularmovies.domain.models.repository.FilmRepository;
 
 /**
  * Created by Sebastian Witasik on 02.03.2018.

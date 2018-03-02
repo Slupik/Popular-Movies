@@ -1,4 +1,4 @@
-package io.github.slupik.popularmovies.domain.film;
+package io.github.slupik.popularmovies.domain.models.film;
 
 /**
  * Created by Sebastian Witasik on 17.02.2018.

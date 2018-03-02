@@ -1,12 +1,12 @@
-package io.github.slupik.data.film.list;
+package io.github.slupik.data.models.film;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.list.FilmList;
+import io.github.slupik.popularmovies.domain.models.film.Film;
+import io.github.slupik.popularmovies.domain.models.film.FilmList;
 
 /**
  * Created by Sebastian Witasik on 19.02.2018.

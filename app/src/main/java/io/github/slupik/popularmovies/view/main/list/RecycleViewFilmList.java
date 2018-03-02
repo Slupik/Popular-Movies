@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.slupik.popularmovies.R;
-import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.view.detail.DetailActivity;
 import io.github.slupik.popularmovies.view.main.MainPresenter;
 

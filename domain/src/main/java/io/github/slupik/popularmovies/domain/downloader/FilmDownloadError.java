@@ -1,4 +1,4 @@
-package io.github.slupik.popularmovies.domain.film.downloader;
+package io.github.slupik.popularmovies.domain.downloader;
 
 /**
  * Created by Sebastian Witasik on 17.02.2018.

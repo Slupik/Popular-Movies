@@ -5,8 +5,8 @@ import com.google.gson.GsonBuilder;
 
 import dagger.Module;
 import dagger.Provides;
-import io.github.slupik.data.film.gson.FilmDeserializer;
-import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.data.gson.film.FilmDeserializer;
+import io.github.slupik.popularmovies.domain.models.film.Film;
 
 /**
  * Created by Sebastian Witasik on 17.02.2018.

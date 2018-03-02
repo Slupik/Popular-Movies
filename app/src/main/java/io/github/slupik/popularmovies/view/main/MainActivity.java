@@ -19,8 +19,8 @@ import butterknife.ButterKnife;
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.main.DaggerMainPresenterViewComponent;
-import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.models.film.Film;
+import io.github.slupik.popularmovies.domain.downloader.FilmDownloadError;
 import io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList;
 import io.github.slupik.popularmovies.view.mvp.presented.BaseActivity;
 

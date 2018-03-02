@@ -5,12 +5,12 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
-import io.github.slupik.data.film.downloader.RetrofitDownloadData;
+import io.github.slupik.data.downloader.list.film.RetrofitDownloadDataList;
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.dagger.view.main.DaggerPresenterComponent;
-import io.github.slupik.popularmovies.domain.film.downloader.FilmDataDownloader;
-import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
-import io.github.slupik.popularmovies.domain.film.list.FilmList;
+import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownloader;
+import io.github.slupik.popularmovies.domain.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.models.film.FilmList;
 import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
 
 /**
@@ -19,12 +19,12 @@ import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
  * All rights reserved & copyright ©
  */
 
-public class MainPresenterImpl extends BasePresenter<MainPresentedView> implements MainPresenter, FilmDataDownloader.Callback {
+public class MainPresenterImpl extends BasePresenter<MainPresentedView> implements MainPresenter, FilmListDownloader.Callback {
     private FilmsType mActualType = FilmsType.POPULAR;
     @Inject
-    FilmDataDownloader mDownloader;
+    FilmListDownloader mDownloader;
     private int page = 1;
-    private RetrofitDownloadData mDownloadData = new RetrofitDownloadData();
+    private RetrofitDownloadDataList mDownloadData = new RetrofitDownloadDataList();
 
     public MainPresenterImpl(Context context) {
         super(context);
@@ -56,9 +56,9 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
         }
     }
 
-    public RetrofitDownloadData getData() {
+    public RetrofitDownloadDataList getData() {
         return mDownloadData
-                .setPage(page++);
+                .setPageOfRanking(page++);
     }
 
     @Override

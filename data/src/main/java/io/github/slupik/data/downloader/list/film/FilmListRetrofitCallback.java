@@ -1,11 +1,11 @@
-package io.github.slupik.data.film.downloader;
+package io.github.slupik.data.downloader.list.film;
 
 import android.support.annotation.NonNull;
 
-import io.github.slupik.data.film.list.FilmListBean;
-import io.github.slupik.popularmovies.domain.film.downloader.FilmDataDownloader;
-import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
-import io.github.slupik.popularmovies.domain.film.list.FilmList;
+import io.github.slupik.data.models.film.FilmListBean;
+import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownloader;
+import io.github.slupik.popularmovies.domain.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.models.film.FilmList;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -16,9 +16,9 @@ import retrofit2.Response;
  */
 
 class FilmListRetrofitCallback implements retrofit2.Callback<FilmListBean> {
-    private FilmDataDownloader.Callback callback;
+    private FilmListDownloader.Callback callback;
 
-    FilmListRetrofitCallback(FilmDataDownloader.Callback callback) {
+    FilmListRetrofitCallback(FilmListDownloader.Callback callback) {
         this.callback = callback;
     }
 

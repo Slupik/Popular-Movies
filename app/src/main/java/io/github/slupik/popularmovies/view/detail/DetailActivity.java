@@ -16,11 +16,11 @@ import butterknife.ButterKnife;
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.detail.DaggerDetailPresentedViewComponent;
-import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.downloader.themovie.TheMovieDbUtils;
+import io.github.slupik.popularmovies.domain.models.film.Film;
+import io.github.slupik.popularmovies.domain.downloader.themovie.TheMovieDbUtils;
 import io.github.slupik.popularmovies.view.mvp.presented.BaseActivity;
 
-import static io.github.slupik.data.film.FilmConnectionUtils.IMAGE_BASE_URL;
+import static io.github.slupik.data.downloader.FilmConnectionUtils.IMAGE_BASE_URL;
 
 public class DetailActivity extends BaseActivity implements DetailPresentedView {
 

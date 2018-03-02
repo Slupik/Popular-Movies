@@ -5,8 +5,8 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.slupik.data.film.FilmBean;
-import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.data.models.film.FilmBean;
+import io.github.slupik.popularmovies.domain.models.film.Film;
 
 import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_BACKDROP_PATH;
 import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_IMAGE_POSTER;

@@ -1,8 +1,8 @@
-package io.github.slupik.popularmovies.domain.film.database;
+package io.github.slupik.popularmovies.domain.models.repository;
 
 import java.util.List;
 
-import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.popularmovies.domain.models.film.Film;
 
 /**
  * Created by Sebastian Witasik on 01.03.2018.

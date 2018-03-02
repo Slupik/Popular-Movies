@@ -2,8 +2,8 @@ package io.github.slupik.popularmovies.view.main;
 
 import java.util.List;
 
-import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.models.film.Film;
+import io.github.slupik.popularmovies.domain.downloader.FilmDownloadError;
 import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
 
 /**

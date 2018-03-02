@@ -8,11 +8,11 @@ import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
-import io.github.slupik.data.film.FilmBean;
+import io.github.slupik.data.models.film.FilmBean;
 import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.detail.DaggerDetailPresenterComponent;
-import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.database.FilmRepository;
+import io.github.slupik.popularmovies.domain.models.film.Film;
+import io.github.slupik.popularmovies.domain.models.repository.FilmRepository;
 import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
 
 import static io.github.slupik.popularmovies.view.detail.DetailActivity.BUNDLE_NAME_WITH_MOVIE_DATA;
@@ -43,6 +43,11 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
         film = getFilmFromData(intent);
         presented.populateFields(film);
         makeViewAsFavourite(isFavouriteFilm(film));
+        downloadTrailers();
+    }
+
+    private void downloadTrailers() {
+
     }
 
     private Film getFilmFromData(Intent intent) {

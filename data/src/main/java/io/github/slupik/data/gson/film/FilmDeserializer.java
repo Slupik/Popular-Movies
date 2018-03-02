@@ -1,4 +1,4 @@
-package io.github.slupik.data.film.gson;
+package io.github.slupik.data.gson.film;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,8 +10,8 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
-import io.github.slupik.data.film.FilmBean;
-import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.data.models.film.FilmBean;
+import io.github.slupik.popularmovies.domain.models.film.Film;
 
 /**
  * Created by Sebastian Witasik on 19.02.2018.

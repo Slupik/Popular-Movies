@@ -15,10 +15,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.data.dagger.film.downloader.GsonModule;
 import io.github.slupik.popularmovies.R;
-import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.downloader.themovie.TheMovieDbUtils;
+import io.github.slupik.popularmovies.domain.models.film.Film;
+import io.github.slupik.popularmovies.domain.downloader.themovie.TheMovieDbUtils;
 
-import static io.github.slupik.data.film.FilmConnectionUtils.IMAGE_BASE_URL;
+import static io.github.slupik.data.downloader.FilmConnectionUtils.IMAGE_BASE_URL;
 
 /**
  * Created by Sebastian Witasik on 20.02.2018.

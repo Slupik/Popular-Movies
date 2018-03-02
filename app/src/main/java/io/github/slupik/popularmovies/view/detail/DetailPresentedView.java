@@ -1,6 +1,6 @@
 package io.github.slupik.popularmovies.view.detail;
 
-import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
 
 /**

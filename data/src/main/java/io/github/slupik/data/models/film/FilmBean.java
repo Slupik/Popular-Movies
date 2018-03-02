@@ -1,8 +1,8 @@
-package io.github.slupik.data.film;
+package io.github.slupik.data.models.film;
 
 import com.google.gson.annotations.SerializedName;
 
-import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.popularmovies.domain.models.film.Film;
 
 /**
  * Created by Sebastian Witasik on 17.02.2018.

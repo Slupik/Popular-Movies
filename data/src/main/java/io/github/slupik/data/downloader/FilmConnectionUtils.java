@@ -1,4 +1,4 @@
-package io.github.slupik.data.film;
+package io.github.slupik.data.downloader;
 
 /**
  * Created by Sebastian Witasik on 20.02.2018.

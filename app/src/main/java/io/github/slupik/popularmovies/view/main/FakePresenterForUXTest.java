@@ -8,9 +8,9 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.slupik.data.film.gson.FilmDeserializer;
-import io.github.slupik.data.film.list.FilmListBean;
-import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.data.gson.film.FilmDeserializer;
+import io.github.slupik.data.models.film.FilmListBean;
+import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.utils.Randomizer;
 import io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList;
 import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;

@@ -8,8 +8,8 @@ import android.net.Uri;
 
 import java.util.List;
 
-import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.database.FilmRepository;
+import io.github.slupik.popularmovies.domain.models.film.Film;
+import io.github.slupik.popularmovies.domain.models.repository.FilmRepository;
 
 import static android.provider.BaseColumns._ID;
 import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.COLUMN_BACKDROP_PATH;

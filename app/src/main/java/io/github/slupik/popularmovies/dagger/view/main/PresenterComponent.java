@@ -1,6 +1,7 @@
 package io.github.slupik.popularmovies.dagger.view.main;
 
 import dagger.Component;
+import io.github.slupik.popularmovies.dagger.view.DownloaderModule;
 import io.github.slupik.popularmovies.view.main.MainPresenterImpl;
 
 /**

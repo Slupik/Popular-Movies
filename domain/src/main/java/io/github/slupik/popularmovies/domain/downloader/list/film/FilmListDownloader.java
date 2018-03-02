@@ -1,6 +1,7 @@
-package io.github.slupik.popularmovies.domain.film.downloader;
+package io.github.slupik.popularmovies.domain.downloader.list.film;
 
-import io.github.slupik.popularmovies.domain.film.list.FilmList;
+import io.github.slupik.popularmovies.domain.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.models.film.FilmList;
 
 /**
  * Created by Sebastian Witasik on 17.02.2018.
@@ -8,7 +9,7 @@ import io.github.slupik.popularmovies.domain.film.list.FilmList;
  * All rights reserved & copyright ©
  */
 
-public interface FilmDataDownloader<D extends DataForDownloader> {
+public interface FilmListDownloader<D extends FilmListDownloader.Data> {
     void downloadPopular(Callback callback, D data);
     void downloadTopRated(Callback callback, D data);
 
@@ -16,5 +17,8 @@ public interface FilmDataDownloader<D extends DataForDownloader> {
         void onSuccess(FilmList data);
         void onFail(FilmDownloadError error);
         void onFail(Throwable error);
+    }
+
+    interface Data {
     }
 }
