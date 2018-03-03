@@ -18,6 +18,7 @@ import io.github.slupik.popularmovies.domain.models.review.Review;
 class ViewHolderReview extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_review_author)
     TextView tvAuthor;
+
     @BindView(R.id.tv_review_content)
     TextView tvContent;
 

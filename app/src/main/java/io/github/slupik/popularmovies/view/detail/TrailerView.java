@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.data.downloader.YouTubeUrl;
+import io.github.slupik.popularmovies.ApplicationUtils;
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.domain.models.trailer.Trailer;
 
@@ -28,18 +29,43 @@ class TrailerView {
     @BindView(R.id.iv_trailer_image)
     ImageView image;
 
+    @BindView(R.id.iv_trailer_play)
+    ImageView ivPlay;
+
+    @BindView(R.id.iv_trailer_share)
+    ImageView ivShare;
+
     TrailerView(Trailer trailer, Context context) {
         inflateThis(context);
         ButterKnife.bind(this, mView);
         mTrailer = trailer;
         populateData(context);
 
-        image.setOnClickListener(new View.OnClickListener() {
+        ivPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openActivityForThisTrailer();
             }
         });
+
+        ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareLinkToTrailer(v.getContext());
+            }
+        });
+    }
+
+    private void shareLinkToTrailer(Context context) {
+        try {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, ApplicationUtils.getApplicationName(context));
+            i.putExtra(Intent.EXTRA_TEXT, getTrailerUrl());
+            context.startActivity(Intent.createChooser(i, "choose one"));
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void inflateThis(Context context) {
