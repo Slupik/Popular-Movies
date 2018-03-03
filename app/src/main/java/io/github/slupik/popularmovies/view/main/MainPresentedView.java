@@ -15,6 +15,7 @@ import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
 interface MainPresentedView extends PresentedView {
     void addFilms(List<Film> list);
     void flushFilms();
+    void changeSortIcons(FilmsType type);
 
     void errorUnknownSortType();
 

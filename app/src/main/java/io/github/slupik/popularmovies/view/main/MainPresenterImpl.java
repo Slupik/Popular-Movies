@@ -7,10 +7,12 @@ import javax.inject.Inject;
 
 import io.github.slupik.data.downloader.list.film.RetrofitDownloadDataList;
 import io.github.slupik.popularmovies.R;
+import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.main.DaggerPresenterComponent;
-import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownloader;
 import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
+import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownloader;
 import io.github.slupik.popularmovies.domain.models.film.FilmList;
+import io.github.slupik.popularmovies.domain.models.repository.FilmRepository;
 import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
 
 /**
@@ -21,17 +23,26 @@ import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
 
 public class MainPresenterImpl extends BasePresenter<MainPresentedView> implements MainPresenter, FilmListDownloader.Callback {
     private FilmsType mActualType = FilmsType.POPULAR;
+
     @Inject
     FilmListDownloader mDownloader;
+    @Inject
+    FilmRepository repository;
+
     private int page = 1;
     private RetrofitDownloadDataList mDownloadData = new RetrofitDownloadDataList();
 
     public MainPresenterImpl(Context context) {
         super(context);
-        DaggerPresenterComponent.builder().build().inject(this);
+        DaggerPresenterComponent.builder().contextModule(new ContextModule(context)).build().inject(this);
         //TODO move this boilerplate to dagger
         String apiKey = context.getString(R.string.key_themoviedb);
         mDownloadData.setApiKey(apiKey);
+    }
+
+    @Override
+    public void onMenuCreate() {
+        presented.changeSortIcons(mActualType);
     }
 
     @Override
@@ -42,6 +53,7 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
         mActualType = type;
         presented.flushFilms();
         page = 1;
+        presented.changeSortIcons(type);
         downloadMoreData();
     }
 
@@ -49,15 +61,19 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
     @SuppressWarnings("unchecked")
     public void downloadMoreData() {
         if(mActualType==FilmsType.POPULAR) {
-            mDownloader.downloadPopular(this, getData());
+            mDownloader.downloadPopular(this, getDownloadData());
         } else if(mActualType==FilmsType.TOP_RATED) {
-            mDownloader.downloadTopRated(this, getData());
+            mDownloader.downloadTopRated(this, getDownloadData());
+        }  else if(mActualType==FilmsType.FAVOURITE) {
+            if(getDownloadData().getPageOfRanking()<2) {
+                presented.addFilms(repository.getFavouriteList());
+            }
         } else {
             presented.errorUnknownSortType();
         }
     }
 
-    public RetrofitDownloadDataList getData() {
+    private RetrofitDownloadDataList getDownloadData() {
         return mDownloadData
                 .setPageOfRanking(page++);
     }

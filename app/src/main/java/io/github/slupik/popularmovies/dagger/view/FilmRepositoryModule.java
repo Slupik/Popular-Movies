@@ -1,11 +1,10 @@
-package io.github.slupik.popularmovies.dagger.view.detail;
+package io.github.slupik.popularmovies.dagger.view;
 
 import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
 import io.github.slupik.data.database.movies.MovieRepository;
-import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.domain.models.repository.FilmRepository;
 
 /**
@@ -15,9 +14,9 @@ import io.github.slupik.popularmovies.domain.models.repository.FilmRepository;
  */
 
 @Module(includes = {ContextModule.class})
-class FilmRepositoryModule {
+public class FilmRepositoryModule {
     @Provides
-    FilmRepository filmRepository(Context context){
+    public FilmRepository filmRepository(Context context){
         return new MovieRepository(context);
     }
 }

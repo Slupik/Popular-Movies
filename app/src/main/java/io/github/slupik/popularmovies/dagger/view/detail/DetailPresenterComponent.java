@@ -3,6 +3,7 @@ package io.github.slupik.popularmovies.dagger.view.detail;
 import dagger.Component;
 import io.github.slupik.data.dagger.film.downloader.GsonModule;
 import io.github.slupik.popularmovies.dagger.view.DownloaderModule;
+import io.github.slupik.popularmovies.dagger.view.FilmRepositoryModule;
 import io.github.slupik.popularmovies.view.detail.DetailPresenterImpl;
 
 /**

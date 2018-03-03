@@ -46,6 +46,11 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
         downloader.start();
     }
 
+    @Override
+    public void onMenuCreate() {
+
+    }
+
     void insertInitData() {
         new Thread(new Runnable() {
             @Override

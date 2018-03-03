@@ -90,10 +90,19 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
         rvFilmList.setAdapter(mAdapter);
     }
 
+
+    private MenuItem miFavourite;
+    private MenuItem miPopular;
+    private MenuItem miRate;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.sort_menu, menu);
+        miFavourite = menu.findItem(R.id.sort_by_favourite);
+        miPopular = menu.findItem(R.id.sort_by_popular);
+        miRate = menu.findItem(R.id.sort_by_rate);
+        presenter.onMenuCreate();
         return true;
     }
 
@@ -108,8 +117,26 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
                 presenter.switchFilmsType(FilmsType.TOP_RATED);
                 return true;
             }
+            case R.id.sort_by_favourite: {
+                presenter.switchFilmsType(FilmsType.FAVOURITE);
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void changeSortIcons(FilmsType type) {
+        miFavourite.setIcon(R.drawable.favourite_off);
+        miRate.setIcon(R.drawable.top_rated_off);
+        miPopular.setIcon(R.drawable.best_off);
+        if(FilmsType.POPULAR == type) {
+            miPopular.setIcon(R.drawable.best_on);
+        } else if(FilmsType.FAVOURITE == type) {
+            miFavourite.setIcon(R.drawable.favourite_on);
+        } else if(FilmsType.TOP_RATED == type) {
+            miRate.setIcon(R.drawable.top_rated_on);
+        }
     }
 
     @Override

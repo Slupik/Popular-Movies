@@ -2,6 +2,7 @@ package io.github.slupik.popularmovies.dagger.view.main;
 
 import dagger.Component;
 import io.github.slupik.popularmovies.dagger.view.DownloaderModule;
+import io.github.slupik.popularmovies.dagger.view.FilmRepositoryModule;
 import io.github.slupik.popularmovies.view.main.MainPresenterImpl;
 
 /**
@@ -10,7 +11,7 @@ import io.github.slupik.popularmovies.view.main.MainPresenterImpl;
  * All rights reserved & copyright ©
  */
 
-@Component(modules = {DownloaderModule.class})
+@Component(modules = {DownloaderModule.class, FilmRepositoryModule.class})
 public interface PresenterComponent {
     void inject(MainPresenterImpl presenter);
 }
