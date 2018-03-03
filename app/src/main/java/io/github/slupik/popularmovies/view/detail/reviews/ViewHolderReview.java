@@ -1,4 +1,4 @@
-package io.github.slupik.popularmovies.view.detail.list;
+package io.github.slupik.popularmovies.view.detail.reviews;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -1,4 +1,4 @@
-package io.github.slupik.popularmovies.view.detail.list;
+package io.github.slupik.popularmovies.view.detail.reviews;
 
 import android.content.Context;
 import android.content.Intent;
@@ -54,7 +54,6 @@ public class RecyclerViewReviewList extends RecyclerView.Adapter<ViewHolderRevie
         View view = inflater.inflate(R.layout.review_item, parent, SHOULD_ATTACH_TO_PARENT_PERMANENTLY_DEFAULT);
         final ViewHolderReview holder = new ViewHolderReview(view);
 
-        //TODO add share option
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

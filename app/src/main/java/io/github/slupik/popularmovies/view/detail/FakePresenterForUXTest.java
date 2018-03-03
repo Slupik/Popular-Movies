@@ -15,7 +15,7 @@ import io.github.slupik.data.models.review.ReviewListBean;
 import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.domain.models.review.Review;
 import io.github.slupik.popularmovies.domain.models.review.ReviewList;
-import io.github.slupik.popularmovies.view.detail.list.RecyclerViewReviewList;
+import io.github.slupik.popularmovies.view.detail.reviews.RecyclerViewReviewList;
 import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
 
 /**

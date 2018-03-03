@@ -22,7 +22,7 @@ import io.github.slupik.popularmovies.dagger.view.detail.DaggerDetailPresentedVi
 import io.github.slupik.popularmovies.domain.downloader.themovie.TheMovieDbUtils;
 import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.domain.models.review.ReviewList;
-import io.github.slupik.popularmovies.view.detail.list.RecyclerViewReviewList;
+import io.github.slupik.popularmovies.view.detail.reviews.RecyclerViewReviewList;
 import io.github.slupik.popularmovies.view.mvp.presented.BaseActivity;
 
 import static io.github.slupik.data.downloader.FilmConnectionUtils.IMAGE_BASE_URL;
