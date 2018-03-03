@@ -29,7 +29,7 @@ import static io.github.slupik.data.downloader.FilmConnectionUtils.IMAGE_BASE_UR
 
 public class DetailActivity extends BaseActivity implements DetailPresentedView {
 
-    private static final boolean TEST_UX = true;
+    private static final boolean TEST_UX = false;
 
     public static final String BUNDLE_NAME_WITH_MOVIE_DATA = "movie_data";
     private static final String IMAGE_SIZE = TheMovieDbUtils.BackdropSizes.W_1280.CODE;
@@ -129,7 +129,7 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
 
     @Override
     public void addReviews(ReviewList data) {
-
+        mAdapter.addReviews(data.getList(), this);
     }
 
     private String getImageUrl(Film film) {
