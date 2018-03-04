@@ -32,7 +32,6 @@ public class RecyclerViewReviewList extends RecyclerView.Adapter<ViewHolderRevie
     private List<Review> reviewList = new ArrayList<>();
     private boolean downloading = false;
     private RecyclerView recyclerView;
-    private DetailActivity context;
 
     public RecyclerViewReviewList(DetailPresenter mPresenter) {
         this.mPresenter = mPresenter;
@@ -127,6 +126,6 @@ public class RecyclerViewReviewList extends RecyclerView.Adapter<ViewHolderRevie
     }
 
     public void setContext(DetailActivity context) {
-        this.context = context;
+        this.mContext = context;
     }
 }

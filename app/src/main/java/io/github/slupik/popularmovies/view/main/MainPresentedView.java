@@ -12,7 +12,7 @@ import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
  * All rights reserved & copyright ©
  */
 
-interface MainPresentedView extends PresentedView {
+public interface MainPresentedView extends PresentedView {
     void addFilms(List<Film> list);
     void flushFilms();
     void changeSortIcons(FilmsType type);

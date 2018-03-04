@@ -32,7 +32,7 @@ class FakePresenterForUXTest extends BasePresenter<DetailPresentedView> implemen
     private RecyclerViewReviewList rvList;
     private FakeDownloading downloader = new FakeDownloading();
 
-    FakePresenterForUXTest(Context context) {
+    private FakePresenterForUXTest(Context context) {
         super(context);
     }
 
@@ -44,7 +44,7 @@ class FakePresenterForUXTest extends BasePresenter<DetailPresentedView> implemen
         return mAdapter;
     }
 
-    void insertInitData() {
+    private void insertInitData() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -112,7 +112,7 @@ class FakePresenterForUXTest extends BasePresenter<DetailPresentedView> implemen
         }
     }
 
-    public FakePresenterForUXTest setRvList(RecyclerViewReviewList rvList) {
+    private FakePresenterForUXTest setRvList(RecyclerViewReviewList rvList) {
         this.rvList = rvList;
         return this;
     }

@@ -16,9 +16,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.AndroidInjection;
 import io.github.slupik.popularmovies.R;
-import io.github.slupik.popularmovies.dagger.view.ContextModule;
-import io.github.slupik.popularmovies.dagger.view.detail.DaggerDetailPresentedViewComponent;
 import io.github.slupik.popularmovies.domain.downloader.themovie.TheMovieDbUtils;
 import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.domain.models.review.ReviewList;
@@ -74,10 +73,7 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-        DaggerDetailPresentedViewComponent
-                .builder()
-                .contextModule(new ContextModule(this))
-                .build().inject(this);
+        AndroidInjection.inject(this);
 
         presenter.onAttach(this);
         presenter.processIntent(getIntent());
@@ -93,6 +89,15 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
     }
 
     private void setupRecyclerView() {
+        mAdapter = createReviewList();
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+        rvReviewList.setLayoutManager(manager);
+        rvReviewList.setHasFixedSize(true);
+        rvReviewList.setAdapter(mAdapter);
+    }
+
+    private RecyclerViewReviewList createReviewList() {
+        RecyclerViewReviewList mAdapter;
         if(TEST_UX) {
             mAdapter = FakePresenterForUXTest.initRecycleView(this.getApplicationContext());
         } else {
@@ -103,10 +108,7 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
         if(mAdapter.getContext()==null) {
             mAdapter.setContext(this);
         }
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
-        rvReviewList.setLayoutManager(manager);
-        rvReviewList.setHasFixedSize(true);
-        rvReviewList.setAdapter(mAdapter);
+        return mAdapter;
     }
 
     @Override

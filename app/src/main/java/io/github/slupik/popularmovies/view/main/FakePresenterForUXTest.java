@@ -29,7 +29,7 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
     private RecycleViewFilmList rvList;
     private FakeDownloading downloader = new FakeDownloading();
 
-    FakePresenterForUXTest(Context context) {
+    private FakePresenterForUXTest(Context context) {
         super(context);
     }
 
@@ -51,7 +51,7 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
 
     }
 
-    void insertInitData() {
+    private void insertInitData() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -116,7 +116,7 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
         }
     }
 
-    public FakePresenterForUXTest setRvList(RecycleViewFilmList rvList) {
+    private FakePresenterForUXTest setRvList(RecycleViewFilmList rvList) {
         this.rvList = rvList;
         return this;
     }
