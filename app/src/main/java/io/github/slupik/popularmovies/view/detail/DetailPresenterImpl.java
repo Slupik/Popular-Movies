@@ -8,9 +8,7 @@ import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
-import io.github.slupik.data.downloader.list.review.RetrofitDownloadDataReviews;
 import io.github.slupik.data.downloader.list.review.ReviewsRetrofitDownloader;
-import io.github.slupik.data.downloader.list.trailer.RetrofitDownloadDataTrailers;
 import io.github.slupik.data.downloader.list.trailer.TrailersRetrofitDownloader;
 import io.github.slupik.data.models.film.FilmBean;
 import io.github.slupik.popularmovies.dagger.view.ContextModule;
@@ -118,27 +116,50 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
         return repository.isFavourite(film);
     }
 
+    private int amountOfTrailers = 0;
     @Override
     public void onSuccess(TrailerList data) {
         for(Trailer trailer:data.getList()){
             View view = new TrailerView(trailer, context).getView();
             presented.addTrailerView(view);
+            amountOfTrailers++;
         }
+        hideTrailersSectionIfNecessary();
     }
 
+    private int amountOfReviews = 0;
     @Override
     public void onSuccess(ReviewList data) {
         presented.addReviews(data);
         maxReviewsPages = data.getTotalPages();
+        amountOfReviews += data.getList().size();
+        hideReviewsSectionIfNecessary();
     }
 
     @Override
     public void onFail(TheMovieDbDownloadError error) {
         System.out.println("error.toString() = " + error.toString());
+        hideTrailersSectionIfNecessary();
+        hideReviewsSectionIfNecessary();
     }
 
     @Override
     public void onFail(Throwable error) {
         error.printStackTrace();
+        hideTrailersSectionIfNecessary();
+        hideReviewsSectionIfNecessary();
+    }
+
+    private void hideTrailersSectionIfNecessary() {
+        if(amountOfTrailers==0) {
+            presented.hideTrailersSection();
+        }
+    }
+
+
+    private void hideReviewsSectionIfNecessary() {
+        if(amountOfReviews==0) {
+            presented.hideReviewsSection();
+        }
     }
 }

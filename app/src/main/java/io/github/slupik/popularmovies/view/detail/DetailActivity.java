@@ -133,6 +133,18 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
         mAdapter.addItems(data.getList(), this);
     }
 
+    @Override
+    public void hideTrailersSection() {
+        tvTrailersLbl.setVisibility(View.GONE);
+        llTrailerList.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideReviewsSection() {
+        tvReviewsLbl.setVisibility(View.GONE);
+        rvReviewList.setVisibility(View.GONE);
+    }
+
     private String getImageUrl(Film film) {
         String url = IMAGE_BASE_URL;
         url += IMAGE_SIZE;

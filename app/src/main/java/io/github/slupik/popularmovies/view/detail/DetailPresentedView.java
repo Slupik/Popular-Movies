@@ -17,4 +17,6 @@ interface DetailPresentedView extends PresentedView {
     void populateFields(Film film);
     void addTrailerView(View view);
     void addReviews(ReviewList data);
+    void hideTrailersSection();
+    void hideReviewsSection();
 }
