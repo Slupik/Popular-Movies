@@ -70,7 +70,7 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
                         .setLenient()
                         .create();
                 FilmListBean list = gson.fromJson(PLAIN_JSON, FilmListBean.class);
-                rvList.addFilms(list.getList(), context);
+                rvList.addItems(list.getList(), context);
             }
         }).start();
     }
@@ -95,7 +95,7 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
             for(int i=0;i<AMOUNT_OF_BASIC_DATA;i++) {
                 completedList.addAll(getSingleFilmList());
             }
-            rvList.addFilms(completedList);
+            rvList.addItems(completedList);
         }
 
         private int lastId = 0;

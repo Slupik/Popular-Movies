@@ -102,7 +102,6 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
             mAdapter = FakePresenterForUXTest.initRecycleView(this.getApplicationContext());
         } else {
             mAdapter = new RecyclerViewReviewList(presenter);
-            mAdapter.loadMoreData();
         }
 
         if(mAdapter.getContext()==null) {
@@ -131,7 +130,7 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
 
     @Override
     public void addReviews(ReviewList data) {
-        mAdapter.addReviews(data.getList(), this);
+        mAdapter.addItems(data.getList(), this);
     }
 
     private String getImageUrl(Film film) {

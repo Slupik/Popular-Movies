@@ -28,7 +28,7 @@ import static io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList.
 
 public class MainActivity extends BaseActivity implements MainPresentedView {
 
-    static final boolean TEST_UX = false;
+    private static final boolean TEST_UX = false;
 
     @BindView(R.id.rv_film_list)
     RecyclerView rvFilmList;
@@ -82,7 +82,6 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
             mAdapter = FakePresenterForUXTest.initRecycleView(getApplicationContext());
         } else {
             mAdapter = new RecycleViewFilmList(presenter);
-            mAdapter.loadMoreData();
         }
         if(mAdapter.getContext()==null) {
             mAdapter.setContext(getApplicationContext());
@@ -99,6 +98,7 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.sort_menu, menu);
+
         miFavourite = menu.findItem(R.id.sort_by_favourite);
         miPopular = menu.findItem(R.id.sort_by_popular);
         miRate = menu.findItem(R.id.sort_by_rate);
@@ -130,6 +130,7 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
         miFavourite.setIcon(R.drawable.favourite_off);
         miRate.setIcon(R.drawable.top_rated_off);
         miPopular.setIcon(R.drawable.best_off);
+
         if(FilmsType.POPULAR == type) {
             miPopular.setIcon(R.drawable.best_on);
         } else if(FilmsType.FAVOURITE == type) {
@@ -141,7 +142,7 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
 
     @Override
     public void addFilms(List<Film> list) {
-        mAdapter.addFilms(list);
+        mAdapter.addItems(list);
         if (list.size() > 0) {
             btnDownloadAgain.setVisibility(View.GONE);
         }

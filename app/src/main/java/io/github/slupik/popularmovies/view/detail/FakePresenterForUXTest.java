@@ -55,7 +55,7 @@ class FakePresenterForUXTest extends BasePresenter<DetailPresentedView> implemen
                 }
                 Gson gson = new GsonModule().gson();
                 ReviewList list = gson.fromJson(PLAIN_JSON, ReviewListBean.class);
-                rvList.addReviews(list.getList(), context);
+                rvList.addItems(list.getList(), context);
             }
         }).start();
     }
@@ -97,7 +97,7 @@ class FakePresenterForUXTest extends BasePresenter<DetailPresentedView> implemen
             for(int i=0;i<AMOUNT_OF_BASIC_DATA;i++) {
                 completedList.addAll(getSingleReviewList());
             }
-            rvList.addReviews(completedList);
+            rvList.addItems(completedList);
         }
 
         private List<Review> getSingleReviewList(){
