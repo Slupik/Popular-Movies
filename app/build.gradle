@@ -39,6 +39,7 @@ dependencies {
 	compile "com.jakewharton:butterknife:$butterKnife"
 	annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
 	compile "com.android.support:recyclerview-v7:$appcompat"
+	compile "com.android.support:design:$appcompat"
 
 	compile "com.squareup.picasso:picasso:$picassoVersion"
 	implementation "com.android.support.constraint:constraint-layout:$constraintLayout"

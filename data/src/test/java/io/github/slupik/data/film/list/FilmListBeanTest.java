@@ -8,7 +8,8 @@ import org.junit.Test;
 
 import io.github.slupik.data.dagger.film.downloader.DaggerFilmRetrofitDownloaderComponent;
 import io.github.slupik.data.dagger.film.downloader.FilmRetrofitDownloaderComponent;
-import io.github.slupik.popularmovies.domain.film.list.FilmList;
+import io.github.slupik.data.models.film.FilmListBean;
+import io.github.slupik.popularmovies.domain.models.film.FilmList;
 
 /**
  * Created by Sebastian Witasik on 19.02.2018.

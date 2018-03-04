@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
 	  xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/sort_by_favourite"
+		  android:icon="@drawable/favourite_off"
+		  app:showAsAction="always"
+		  android:title="@string/show_top_rated"/>
 	<item android:id="@+id/sort_by_popular"
+		  android:icon="@drawable/best_off"
+		  app:showAsAction="always"
 		  android:title="@string/show_popular"/>
 	<item android:id="@+id/sort_by_rate"
-		  android:title="@string/show_top_rated" />
+		  android:icon="@drawable/top_rated_off"
+		  app:showAsAction="always"
+		  android:title="@string/show_favourite" />
 </menu>

@@ -1,5 +1,9 @@
 package io.github.slupik.popularmovies.view.detail;
 
+import android.content.Intent;
+import android.view.View;
+
+import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.view.mvp.presenter.Presenter;
 
 /**
@@ -9,4 +13,8 @@ import io.github.slupik.popularmovies.view.mvp.presenter.Presenter;
  */
 
 public interface DetailPresenter extends Presenter<DetailPresentedView> {
+    void processIntent(Intent intent);
+    void onFavouriteAction(View view);
+    void downloadMoreReviews(String id);
+    Film getFilm();
 }

@@ -5,12 +5,12 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
-import io.github.slupik.data.film.downloader.RetrofitDownloadData;
-import io.github.slupik.popularmovies.R;
+import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.main.DaggerPresenterComponent;
-import io.github.slupik.popularmovies.domain.film.downloader.FilmDataDownloader;
-import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
-import io.github.slupik.popularmovies.domain.film.list.FilmList;
+import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
+import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownloader;
+import io.github.slupik.popularmovies.domain.models.film.FilmList;
+import io.github.slupik.popularmovies.domain.models.repository.FilmRepository;
 import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
 
 /**
@@ -19,18 +19,32 @@ import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
  * All rights reserved & copyright ©
  */
 
-public class MainPresenterImpl extends BasePresenter<MainPresentedView> implements MainPresenter, FilmDataDownloader.Callback {
+public class MainPresenterImpl extends BasePresenter<MainPresentedView> implements MainPresenter, FilmListDownloader.Callback {
     private FilmsType mActualType = FilmsType.POPULAR;
+
     @Inject
-    FilmDataDownloader mDownloader;
+    FilmListDownloader mDownloader;
+    @Inject
+    FilmRepository repository;
+    @Inject
+    FilmListDownloader.Data downloadData;
+
     private int page = 1;
-    private RetrofitDownloadData mDownloadData = new RetrofitDownloadData();
 
     public MainPresenterImpl(Context context) {
         super(context);
-        DaggerPresenterComponent.builder().build().inject(this);
-        String apiKey = context.getString(R.string.key_themoviedb);
-        mDownloadData.setApiKey(apiKey);
+    }
+
+    @Override
+    protected void useDagger() {
+        DaggerPresenterComponent.builder()
+                .contextModule(new ContextModule(context))
+                .build().inject(this);
+    }
+
+    @Override
+    public void onMenuCreate() {
+        presented.changeSortIcons(mActualType);
     }
 
     @Override
@@ -41,6 +55,7 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
         mActualType = type;
         presented.flushFilms();
         page = 1;
+        presented.changeSortIcons(type);
         downloadMoreData();
     }
 
@@ -48,17 +63,21 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
     @SuppressWarnings("unchecked")
     public void downloadMoreData() {
         if(mActualType==FilmsType.POPULAR) {
-            mDownloader.downloadPopular(this, getData());
+            mDownloader.downloadPopular(this, getDownloadData());
         } else if(mActualType==FilmsType.TOP_RATED) {
-            mDownloader.downloadTopRated(this, getData());
+            mDownloader.downloadTopRated(this, getDownloadData());
+        }  else if(mActualType==FilmsType.FAVOURITE) {
+            if(getDownloadData().getPageOfRanking()<2) {
+                presented.addFilms(repository.getFavouriteList());
+            }
         } else {
             presented.errorUnknownSortType();
         }
     }
 
-    public RetrofitDownloadData getData() {
-        return mDownloadData
-                .setPage(page++);
+    private FilmListDownloader.Data getDownloadData() {
+        return downloadData
+                .setPageOfRanking(page++);
     }
 
     @Override
@@ -67,7 +86,7 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
     }
 
     @Override
-    public void onFail(FilmDownloadError error) {
+    public void onFail(TheMovieDbDownloadError error) {
         Log.e(MainPresenterImpl.class.getName(), "Error while downloading: "+error.name());
         page--;
         presented.errorWhileDownloading(error);

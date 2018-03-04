@@ -2,8 +2,8 @@ package io.github.slupik.popularmovies.view.main;
 
 import java.util.List;
 
-import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.models.film.Film;
+import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
 import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
 
 /**
@@ -12,13 +12,14 @@ import io.github.slupik.popularmovies.view.mvp.presented.PresentedView;
  * All rights reserved & copyright ©
  */
 
-interface MainPresentedView extends PresentedView {
+public interface MainPresentedView extends PresentedView {
     void addFilms(List<Film> list);
     void flushFilms();
+    void changeSortIcons(FilmsType type);
 
     void errorUnknownSortType();
 
-    void errorWhileDownloading(FilmDownloadError error);
+    void errorWhileDownloading(TheMovieDbDownloadError error);
 
     void errorUnknownWhileDownloading();
 }

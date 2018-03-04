@@ -8,9 +8,9 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.slupik.data.film.gson.FilmDeserializer;
-import io.github.slupik.data.film.list.FilmListBean;
-import io.github.slupik.popularmovies.domain.film.Film;
+import io.github.slupik.data.gson.film.FilmDeserializer;
+import io.github.slupik.data.models.film.FilmListBean;
+import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.utils.Randomizer;
 import io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList;
 import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
@@ -29,7 +29,7 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
     private RecycleViewFilmList rvList;
     private FakeDownloading downloader = new FakeDownloading();
 
-    FakePresenterForUXTest(Context context) {
+    private FakePresenterForUXTest(Context context) {
         super(context);
     }
 
@@ -46,7 +46,17 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
         downloader.start();
     }
 
-    void insertInitData() {
+    @Override
+    protected void useDagger() {
+
+    }
+
+    @Override
+    public void onMenuCreate() {
+
+    }
+
+    private void insertInitData() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -60,7 +70,7 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
                         .setLenient()
                         .create();
                 FilmListBean list = gson.fromJson(PLAIN_JSON, FilmListBean.class);
-                rvList.addFilms(list.getList(), context);
+                rvList.addItems(list.getList(), context);
             }
         }).start();
     }
@@ -85,7 +95,7 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
             for(int i=0;i<AMOUNT_OF_BASIC_DATA;i++) {
                 completedList.addAll(getSingleFilmList());
             }
-            rvList.addFilms(completedList);
+            rvList.addItems(completedList);
         }
 
         private int lastId = 0;
@@ -111,7 +121,7 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
         }
     }
 
-    public FakePresenterForUXTest setRvList(RecycleViewFilmList rvList) {
+    private FakePresenterForUXTest setRvList(RecycleViewFilmList rvList) {
         this.rvList = rvList;
         return this;
     }

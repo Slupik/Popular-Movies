@@ -1,6 +1,7 @@
 package io.github.slupik.popularmovies.view.main.list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,10 +16,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.slupik.data.dagger.film.downloader.GsonModule;
 import io.github.slupik.popularmovies.R;
-import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.downloader.themovie.TheMovieDbUtils;
+import io.github.slupik.popularmovies.domain.downloader.themovie.TheMovieDbUtils;
+import io.github.slupik.popularmovies.domain.models.film.Film;
+import io.github.slupik.popularmovies.view.detail.DetailActivity;
 
-import static io.github.slupik.data.film.FilmConnectionUtils.IMAGE_BASE_URL;
+import static io.github.slupik.data.downloader.FilmConnectionUtils.IMAGE_BASE_URL;
 
 /**
  * Created by Sebastian Witasik on 20.02.2018.
@@ -29,8 +31,8 @@ import static io.github.slupik.data.film.FilmConnectionUtils.IMAGE_BASE_URL;
 class ViewHolderFilm extends RecyclerView.ViewHolder {
 
     private static final String IMAGE_SIZE = TheMovieDbUtils.PosterSizes.W_185.CODE;
-    private static final int TIME_INTERVAL = 100;
-    private static final int MAX_WAITING_TIME_FOR_POSTER = TIME_INTERVAL*20;
+    private static final int TIME_OF_WAIT_FOR_LOAD_INTERVAL = 100;
+    private static final int MAX_WAITING_TIME_FOR_POSTER = TIME_OF_WAIT_FOR_LOAD_INTERVAL *20;
 
     private Film actualFilm;
 
@@ -46,6 +48,18 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
     ViewHolderFilm(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        setClickListenerToPoster(itemView);
+    }
+
+    private void setClickListenerToPoster(View itemView) {
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DetailActivity.class);
+                intent.putExtra(DetailActivity.BUNDLE_NAME_WITH_MOVIE_DATA, getActualFilmAsString());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     void onRemoveFromList() {
@@ -88,11 +102,11 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
                 int totalTime = 0;
                 while(ivPoster.getWidth()==0 && MAX_WAITING_TIME_FOR_POSTER>totalTime){
                     try {
-                        Thread.sleep(TIME_INTERVAL);
+                        Thread.sleep(TIME_OF_WAIT_FOR_LOAD_INTERVAL);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    totalTime += TIME_INTERVAL;
+                    totalTime += TIME_OF_WAIT_FOR_LOAD_INTERVAL;
                 }
             }
         }).start();
@@ -137,7 +151,7 @@ class ViewHolderFilm extends RecyclerView.ViewHolder {
         return (int) (width*RATIO_FOR_POSTER_HEIGHT);
     }
 
-    String getActualFilmAsString() {
+    private String getActualFilmAsString() {
         Gson converter = new GsonModule().gson();
         return converter.toJson(actualFilm);
     }

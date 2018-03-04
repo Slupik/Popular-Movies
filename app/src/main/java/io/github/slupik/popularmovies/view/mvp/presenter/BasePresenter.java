@@ -20,7 +20,10 @@ public abstract class BasePresenter<V extends PresentedView>
 
     public BasePresenter(Context context) {
         this.context = context.getApplicationContext();
+        useDagger();
     }
+
+    protected abstract void useDagger();
 
     @Override
     @CallSuper

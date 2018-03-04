@@ -11,4 +11,5 @@ import io.github.slupik.popularmovies.view.mvp.presenter.Presenter;
 public interface MainPresenter extends Presenter<MainPresentedView> {
     void switchFilmsType(FilmsType type);
     void downloadMoreData();
+    void onMenuCreate();
 }
