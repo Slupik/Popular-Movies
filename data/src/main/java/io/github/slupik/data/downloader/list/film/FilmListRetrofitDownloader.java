@@ -1,9 +1,6 @@
 package io.github.slupik.data.downloader.list.film;
 
-import javax.inject.Inject;
-
-import io.github.slupik.data.dagger.film.downloader.DaggerFilmRetrofitDownloaderComponent;
-import io.github.slupik.data.downloader.list.RetrofitDownloader;
+import io.github.slupik.data.downloader.list.BaseRetrofitDownloader;
 import io.github.slupik.data.models.film.FilmListBean;
 import io.github.slupik.popularmovies.domain.downloader.list.film.FilmListDownloader;
 import retrofit2.Call;
@@ -14,20 +11,11 @@ import retrofit2.Call;
  * All rights reserved & copyright ©
  */
 
-public class FilmListRetrofitDownloader implements FilmListDownloader<FilmListDownloader.Data> {
-
-    @Inject
-    RetrofitDownloader downloader;
-
-    public FilmListRetrofitDownloader(){
-        DaggerFilmRetrofitDownloaderComponent.builder()
-                .build()
-                .inject(this);
-    }
+public class FilmListRetrofitDownloader extends BaseRetrofitDownloader implements FilmListDownloader<FilmListDownloader.Data> {
 
     @Override
     public void downloadPopular(final Callback callback, FilmListDownloader.Data data) {
-        Call<FilmListBean> call = downloader.getPopularFilms(
+        Call<FilmListBean> call = getDownloader().getPopularFilms(
                 data.getApiKey(),
                 data.getLanguage(),
                 data.getPageOfRanking());
@@ -36,7 +24,7 @@ public class FilmListRetrofitDownloader implements FilmListDownloader<FilmListDo
 
     @Override
     public void downloadTopRated(final Callback callback, FilmListDownloader.Data data) {
-        Call<FilmListBean> call = downloader.getTopRatedFilms(
+        Call<FilmListBean> call = getDownloader().getTopRatedFilms(
                 data.getApiKey(),
                 data.getLanguage(),
                 data.getPageOfRanking());

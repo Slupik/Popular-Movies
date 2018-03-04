@@ -1,9 +1,6 @@
 package io.github.slupik.data.downloader.list.trailer;
 
-import javax.inject.Inject;
-
-import io.github.slupik.data.dagger.film.downloader.DaggerFilmRetrofitDownloaderComponent;
-import io.github.slupik.data.downloader.list.RetrofitDownloader;
+import io.github.slupik.data.downloader.list.BaseRetrofitDownloader;
 import io.github.slupik.data.models.trailer.TrailerListBean;
 import io.github.slupik.popularmovies.domain.downloader.list.trailer.TrailerListDownloader;
 import retrofit2.Call;
@@ -14,21 +11,11 @@ import retrofit2.Call;
  * All rights reserved & copyright ©
  */
 
-public class TrailersRetrofitDownloader implements TrailerListDownloader<TrailerListDownloader.Data> {
-
-    @Inject
-    RetrofitDownloader downloader;
-
-    public TrailersRetrofitDownloader(){
-        //TODO move this boilerplate code to root of downloader
-        downloader = DaggerFilmRetrofitDownloaderComponent.builder()
-                .build()
-                .getDownloader();
-    }
+public class TrailersRetrofitDownloader extends BaseRetrofitDownloader implements TrailerListDownloader<TrailerListDownloader.Data> {
 
     @Override
     public void downloadTrailers(Callback callback, TrailerListDownloader.Data data) {
-        Call<TrailerListBean> call = downloader.getTrailers(
+        Call<TrailerListBean> call = getDownloader().getTrailers(
                 data.getMovieId(),
                 data.getApiKey(),
                 data.getLanguage());

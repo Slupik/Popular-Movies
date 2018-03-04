@@ -1,9 +1,6 @@
 package io.github.slupik.data.downloader.list.review;
 
-import javax.inject.Inject;
-
-import io.github.slupik.data.dagger.film.downloader.DaggerFilmRetrofitDownloaderComponent;
-import io.github.slupik.data.downloader.list.RetrofitDownloader;
+import io.github.slupik.data.downloader.list.BaseRetrofitDownloader;
 import io.github.slupik.data.models.review.ReviewListBean;
 import io.github.slupik.popularmovies.domain.downloader.list.review.ReviewListDownloader;
 import retrofit2.Call;
@@ -14,20 +11,11 @@ import retrofit2.Call;
  * All rights reserved & copyright ©
  */
 
-public class ReviewsRetrofitDownloader implements ReviewListDownloader<ReviewListDownloader.Data> {
-
-    @Inject
-    RetrofitDownloader downloader;
-
-    public ReviewsRetrofitDownloader(){
-        downloader = DaggerFilmRetrofitDownloaderComponent.builder()
-                .build()
-                .getDownloader();
-    }
+public class ReviewsRetrofitDownloader extends BaseRetrofitDownloader implements ReviewListDownloader<ReviewListDownloader.Data> {
 
     @Override
     public void downloadReviews(final Callback callback, ReviewListDownloader.Data data) {
-        Call<ReviewListBean> call = downloader.getReviews(
+        Call<ReviewListBean> call = getDownloader().getReviews(
                 data.getMovieId(),
                 data.getApiKey(),
                 data.getLanguage(),
