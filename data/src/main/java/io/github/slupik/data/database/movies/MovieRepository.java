@@ -25,7 +25,7 @@ import static io.github.slupik.data.database.movies.MovieContract.MovieEntry.CON
 
 /**
  * Created by Sebastian Witasik on 01.03.2018.
- * E-mail: Sebastian Witasik
+ * E-mail: SebastianWitasik@gmail.com
  * All rights reserved & copyright ©
  */
 

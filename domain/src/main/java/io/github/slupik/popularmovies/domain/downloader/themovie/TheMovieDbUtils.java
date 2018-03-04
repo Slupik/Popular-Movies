@@ -2,7 +2,7 @@ package io.github.slupik.popularmovies.domain.downloader.themovie;
 
 /**
  * Created by Sebastian Witasik on 20.02.2018.
- * E-mail: Sebastian Witasik
+ * E-mail: SebastianWitasik@gmail.com
  * All rights reserved & copyright ©
  */
 

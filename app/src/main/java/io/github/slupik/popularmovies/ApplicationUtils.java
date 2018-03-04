@@ -5,7 +5,7 @@ import android.content.pm.ApplicationInfo;
 
 /**
  * Created by Sebastian Witasik on 03.03.2018.
- * E-mail: Sebastian Witasik
+ * E-mail: SebastianWitasik@gmail.com
  * All rights reserved & copyright ©
  */
 

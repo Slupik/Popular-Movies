@@ -7,7 +7,7 @@ import io.github.slupik.popularmovies.view.main.MainPresenterImpl;
 
 /**
  * Created by Sebastian Witasik on 20.02.2018.
- * E-mail: Sebastian Witasik
+ * E-mail: SebastianWitasik@gmail.com
  * All rights reserved & copyright ©
  */
 

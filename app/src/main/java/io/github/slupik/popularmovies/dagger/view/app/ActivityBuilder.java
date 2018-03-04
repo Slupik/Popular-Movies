@@ -9,7 +9,7 @@ import io.github.slupik.popularmovies.view.main.MainActivityModule;
 
 /**
  * Created by Sebastian Witasik on 04.03.2018.
- * E-mail: Sebastian Witasik
+ * E-mail: SebastianWitasik@gmail.com
  * All rights reserved & copyright ©
  */
 

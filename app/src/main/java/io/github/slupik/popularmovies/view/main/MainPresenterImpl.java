@@ -15,7 +15,7 @@ import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
 
 /**
  * Created by Sebastian Witasik on 19.02.2018.
- * E-mail: Sebastian Witasik
+ * E-mail: SebastianWitasik@gmail.com
  * All rights reserved & copyright ©
  */
 

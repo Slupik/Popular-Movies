@@ -12,7 +12,7 @@ import static io.github.slupik.data.downloader.FilmConnectionUtils.API_BASE_URL;
 
 /**
  * Created by Sebastian Witasik on 17.02.2018.
- * E-mail: Sebastian Witasik
+ * E-mail: SebastianWitasik@gmail.com
  * All rights reserved & copyright ©
  */
 @Module(includes = {GsonModule.class})

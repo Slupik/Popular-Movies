@@ -2,7 +2,7 @@ package io.github.slupik.popularmovies.domain.models.review;
 
 /**
  * Created by Sebastian Witasik on 02.03.2018.
- * E-mail: Sebastian Witasik
+ * E-mail: SebastianWitasik@gmail.com
  * All rights reserved & copyright ©
  */
 

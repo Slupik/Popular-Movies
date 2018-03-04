@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 
 /**
  * Created by Sebastian Witasik on 07.01.2018.
- * E-mail: Sebastian Witasik
+ * E-mail: SebastianWitasik@gmail.com
  * All rights reserved & copyright ©
  */
 
