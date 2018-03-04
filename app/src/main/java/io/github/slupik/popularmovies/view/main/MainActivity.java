@@ -3,7 +3,6 @@ package io.github.slupik.popularmovies.view.main;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,13 +16,15 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.AndroidInjection;
 import io.github.slupik.popularmovies.R;
-import io.github.slupik.popularmovies.dagger.view.ContextModule;
-import io.github.slupik.popularmovies.dagger.view.main.DaggerMainPresenterViewComponent;
-import io.github.slupik.popularmovies.domain.film.Film;
-import io.github.slupik.popularmovies.domain.film.downloader.FilmDownloadError;
+import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
+import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList;
 import io.github.slupik.popularmovies.view.mvp.presented.BaseActivity;
+
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import static io.github.slupik.popularmovies.view.main.list.RecycleViewFilmList.NUMBER_OF_FILMS_IN_ROW;
 
 public class MainActivity extends BaseActivity implements MainPresentedView {
 
@@ -45,11 +46,7 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        DaggerMainPresenterViewComponent
-                .builder()
-                .contextModule(new ContextModule(this))
-                .build()
-                .inject(this);
+        AndroidInjection.inject(this);
         presenter.onAttach(this);
 
         setupDownloadingButton();
@@ -67,35 +64,45 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
     }
 
     private void setupRecyclerView() {
-        if(TEST_UX) {
-            mAdapter = FakePresenterForUXTest.initRecycleView(this.getApplicationContext());
+        mAdapter = createFilmList();
+        RecyclerView.LayoutManager manager;
+        if(getResources().getConfiguration().orientation==ORIENTATION_LANDSCAPE) {
+            manager = new GridLayoutManager(this, NUMBER_OF_FILMS_IN_ROW*2);
         } else {
-            mAdapter = new RecycleViewFilmList(presenter);
-            mAdapter.loadMoreData();
+            manager = new GridLayoutManager(this, NUMBER_OF_FILMS_IN_ROW);
         }
-        if(mAdapter.getContext()==null) {
-            mAdapter.setContext(this);
-        }
-        RecyclerView.LayoutManager manager = new GridLayoutManager(this, numberOfColumns());
         rvFilmList.setLayoutManager(manager);
         rvFilmList.setHasFixedSize(true);
         rvFilmList.setAdapter(mAdapter);
     }
 
-    private static final int DEFAULT_POSTER_WIDTH = 500;
-    private int numberOfColumns() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
-        int nColumns = width / DEFAULT_POSTER_WIDTH;
-        if (nColumns < 2) return 2;
-        return nColumns;
+    private RecycleViewFilmList createFilmList() {
+        RecycleViewFilmList mAdapter;
+        if(TEST_UX) {
+            mAdapter = FakePresenterForUXTest.initRecycleView(getApplicationContext());
+        } else {
+            mAdapter = new RecycleViewFilmList(presenter);
+        }
+        if(mAdapter.getContext()==null) {
+            mAdapter.setContext(getApplicationContext());
+        }
+        return mAdapter;
     }
+
+
+    private MenuItem miFavourite;
+    private MenuItem miPopular;
+    private MenuItem miRate;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.sort_menu, menu);
+
+        miFavourite = menu.findItem(R.id.sort_by_favourite);
+        miPopular = menu.findItem(R.id.sort_by_popular);
+        miRate = menu.findItem(R.id.sort_by_rate);
+        presenter.onMenuCreate();
         return true;
     }
 
@@ -110,13 +117,32 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
                 presenter.switchFilmsType(FilmsType.TOP_RATED);
                 return true;
             }
+            case R.id.sort_by_favourite: {
+                presenter.switchFilmsType(FilmsType.FAVOURITE);
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
+    public void changeSortIcons(FilmsType type) {
+        miFavourite.setIcon(R.drawable.favourite_off);
+        miRate.setIcon(R.drawable.top_rated_off);
+        miPopular.setIcon(R.drawable.best_off);
+
+        if(FilmsType.POPULAR == type) {
+            miPopular.setIcon(R.drawable.best_on);
+        } else if(FilmsType.FAVOURITE == type) {
+            miFavourite.setIcon(R.drawable.favourite_on);
+        } else if(FilmsType.TOP_RATED == type) {
+            miRate.setIcon(R.drawable.top_rated_on);
+        }
+    }
+
+    @Override
     public void addFilms(List<Film> list) {
-        mAdapter.addFilms(list);
+        mAdapter.addItems(list);
         if (list.size() > 0) {
             btnDownloadAgain.setVisibility(View.GONE);
         }
@@ -135,7 +161,7 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
     }
 
     @Override
-    public void errorWhileDownloading(FilmDownloadError error) {
+    public void errorWhileDownloading(TheMovieDbDownloadError error) {
         showErrorDialog(R.string.connection_to_database_error_title, R.string.connection_error_check_connection);
         btnDownloadAgain.setVisibility(View.VISIBLE);
         addFilms(new ArrayList<Film>());

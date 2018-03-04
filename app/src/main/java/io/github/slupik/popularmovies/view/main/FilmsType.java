@@ -8,5 +8,5 @@ package io.github.slupik.popularmovies.view.main;
 
 enum FilmsType {
     POPULAR,
-    TOP_RATED
+    FAVOURITE, TOP_RATED
 }
