@@ -61,6 +61,9 @@ class FakePresenterForUXTest extends BasePresenter<DetailPresentedView> implemen
     }
 
     @Override
+    protected void useDagger() {}
+
+    @Override
     public void processIntent(Intent intent) {
 
     }

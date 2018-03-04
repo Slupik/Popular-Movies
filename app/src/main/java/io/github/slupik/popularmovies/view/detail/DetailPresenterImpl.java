@@ -13,7 +13,6 @@ import io.github.slupik.data.downloader.list.review.ReviewsRetrofitDownloader;
 import io.github.slupik.data.downloader.list.trailer.RetrofitDownloadDataTrailers;
 import io.github.slupik.data.downloader.list.trailer.TrailersRetrofitDownloader;
 import io.github.slupik.data.models.film.FilmBean;
-import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.detail.DaggerDetailPresenterComponent;
 import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
@@ -38,18 +37,17 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
 
     @Inject
     FilmRepository repository;
-
     @Inject
     Gson jsonConverter;
-
     @Inject
     TrailersRetrofitDownloader mTrailersDownloader;
-
     @Inject
     ReviewsRetrofitDownloader mReviewsDownloader;
+    @Inject
+    TrailerListDownloader.Data mDownloadDataTrailers;
+    @Inject
+    ReviewListDownloader.Data mDownloadDataReviews;
 
-    private RetrofitDownloadDataTrailers mDownloadDataTrailers = new RetrofitDownloadDataTrailers();
-    private RetrofitDownloadDataReviews mDownloadDataReviews = new RetrofitDownloadDataReviews();
     private int reviewsPage = 1;
     private int maxReviewsPages = 1;
 
@@ -57,10 +55,13 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
 
     public DetailPresenterImpl(Context context) {
         super(context);
-        DaggerDetailPresenterComponent.builder().contextModule(new ContextModule(context)).build().inject(this);
-        String apiKey = context.getString(R.string.key_themoviedb);
-        mDownloadDataTrailers.setApiKey(apiKey);
-        mDownloadDataReviews.setApiKey(apiKey);
+    }
+
+    @Override
+    protected void useDagger() {
+        DaggerDetailPresenterComponent.builder()
+                .contextModule(new ContextModule(context))
+                .build().inject(this);
     }
 
     @Override

@@ -14,38 +14,46 @@ public class RetrofitDownloadDataReviews implements ReviewListDownloader.Data {
     private String movieId = "-1";
     private int pageOfReviews = 1;
 
+    @Override
     public String getLanguage() {
         return language;
     }
 
+    @Override
     public RetrofitDownloadDataReviews setLanguage(String language) {
         this.language = language;
         return this;
     }
 
+    @Override
     public String getApiKey() {
         return apiKey;
     }
 
+    @Override
     public RetrofitDownloadDataReviews setApiKey(String apiKey) {
         this.apiKey = apiKey;
         return this;
     }
 
+    @Override
+    public String getMovieId() {
+        return movieId;
+    }
+
+    @Override
     public RetrofitDownloadDataReviews setMovieId(String movieId) {
         this.movieId = movieId;
         return this;
     }
 
-    public String getMovieId() {
-        return movieId;
-    }
-
-    public void setPageOfReviews(int pageOfReviews) {
-        this.pageOfReviews = pageOfReviews;
-    }
-
+    @Override
     public int getPageOfReviews() {
         return pageOfReviews;
+    }
+
+    @Override
+    public void setPageOfReviews(int pageOfReviews) {
+        this.pageOfReviews = pageOfReviews;
     }
 }

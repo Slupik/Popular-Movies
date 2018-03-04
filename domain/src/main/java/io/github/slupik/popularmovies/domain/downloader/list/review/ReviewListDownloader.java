@@ -19,5 +19,13 @@ public interface ReviewListDownloader<D extends ReviewListDownloader.Data> {
     }
 
     interface Data {
+        String getLanguage();
+        Data setLanguage(String language);
+        String getApiKey();
+        Data setApiKey(String apiKey);
+        String getMovieId();
+        Data setMovieId(String movieId);
+        int getPageOfReviews();
+        void setPageOfReviews(int pageOfReviews);
     }
 }

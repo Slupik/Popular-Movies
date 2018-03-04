@@ -13,29 +13,35 @@ public class RetrofitDownloadDataList implements FilmListDownloader.Data {
     private String language = "en-US";
     private String apiKey = "";
 
+    @Override
     public int getPageOfRanking() {
         return pageOfRanking;
     }
 
-    public RetrofitDownloadDataList setPageOfRanking(int page) {
+    @Override
+    public FilmListDownloader.Data setPageOfRanking(int page) {
         this.pageOfRanking = page;
         return this;
     }
 
+    @Override
     public String getLanguage() {
         return language;
     }
 
-    public RetrofitDownloadDataList setLanguage(String language) {
+    @Override
+    public FilmListDownloader.Data setLanguage(String language) {
         this.language = language;
         return this;
     }
 
+    @Override
     public String getApiKey() {
         return apiKey;
     }
 
-    public RetrofitDownloadDataList setApiKey(String apiKey) {
+    @Override
+    public FilmListDownloader.Data setApiKey(String apiKey) {
         this.apiKey = apiKey;
         return this;
     }

@@ -14,7 +14,7 @@ import retrofit2.Call;
  * All rights reserved & copyright ©
  */
 
-public class FilmListRetrofitDownloader implements FilmListDownloader<RetrofitDownloadDataList> {
+public class FilmListRetrofitDownloader implements FilmListDownloader<FilmListDownloader.Data> {
 
     @Inject
     RetrofitDownloader downloader;
@@ -26,7 +26,7 @@ public class FilmListRetrofitDownloader implements FilmListDownloader<RetrofitDo
     }
 
     @Override
-    public void downloadPopular(final Callback callback, RetrofitDownloadDataList data) {
+    public void downloadPopular(final Callback callback, FilmListDownloader.Data data) {
         Call<FilmListBean> call = downloader.getPopularFilms(
                 data.getApiKey(),
                 data.getLanguage(),
@@ -35,7 +35,7 @@ public class FilmListRetrofitDownloader implements FilmListDownloader<RetrofitDo
     }
 
     @Override
-    public void downloadTopRated(final Callback callback, RetrofitDownloadDataList data) {
+    public void downloadTopRated(final Callback callback, FilmListDownloader.Data data) {
         Call<FilmListBean> call = downloader.getTopRatedFilms(
                 data.getApiKey(),
                 data.getLanguage(),

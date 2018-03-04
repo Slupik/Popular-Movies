@@ -19,5 +19,11 @@ public interface TrailerListDownloader<D extends TrailerListDownloader.Data> {
     }
 
     interface Data {
+        String getLanguage();
+        Data setLanguage(String language);
+        String getApiKey();
+        Data setApiKey(String apiKey);
+        String getMovieId();
+        Data setMovieId(String movieId);
     }
 }

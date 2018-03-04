@@ -5,8 +5,6 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
-import io.github.slupik.data.downloader.list.film.RetrofitDownloadDataList;
-import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.dagger.view.ContextModule;
 import io.github.slupik.popularmovies.dagger.view.main.DaggerPresenterComponent;
 import io.github.slupik.popularmovies.domain.downloader.TheMovieDbDownloadError;
@@ -28,16 +26,20 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
     FilmListDownloader mDownloader;
     @Inject
     FilmRepository repository;
+    @Inject
+    FilmListDownloader.Data downloadData;
 
     private int page = 1;
-    private RetrofitDownloadDataList mDownloadData = new RetrofitDownloadDataList();
 
     public MainPresenterImpl(Context context) {
         super(context);
-        DaggerPresenterComponent.builder().contextModule(new ContextModule(context)).build().inject(this);
-        //TODO move this boilerplate to dagger
-        String apiKey = context.getString(R.string.key_themoviedb);
-        mDownloadData.setApiKey(apiKey);
+    }
+
+    @Override
+    protected void useDagger() {
+        DaggerPresenterComponent.builder()
+                .contextModule(new ContextModule(context))
+                .build().inject(this);
     }
 
     @Override
@@ -73,8 +75,8 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
         }
     }
 
-    private RetrofitDownloadDataList getDownloadData() {
-        return mDownloadData
+    private FilmListDownloader.Data getDownloadData() {
+        return downloadData
                 .setPageOfRanking(page++);
     }
 

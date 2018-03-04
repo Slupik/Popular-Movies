@@ -13,30 +13,36 @@ public class RetrofitDownloadDataTrailers implements TrailerListDownloader.Data 
     private String apiKey = "";
     private String movieId;
 
+    @Override
     public String getLanguage() {
         return language;
     }
 
-    public RetrofitDownloadDataTrailers setLanguage(String language) {
+    @Override
+    public TrailerListDownloader.Data setLanguage(String language) {
         this.language = language;
         return this;
     }
 
+    @Override
     public String getApiKey() {
         return apiKey;
     }
 
-    public RetrofitDownloadDataTrailers setApiKey(String apiKey) {
+    @Override
+    public TrailerListDownloader.Data setApiKey(String apiKey) {
         this.apiKey = apiKey;
         return this;
     }
 
-    public RetrofitDownloadDataTrailers setMovieId(String movieId) {
-        this.movieId = movieId;
-        return this;
-    }
-
+    @Override
     public String getMovieId() {
         return movieId;
+    }
+
+    @Override
+    public TrailerListDownloader.Data setMovieId(String movieId) {
+        this.movieId = movieId;
+        return this;
     }
 }

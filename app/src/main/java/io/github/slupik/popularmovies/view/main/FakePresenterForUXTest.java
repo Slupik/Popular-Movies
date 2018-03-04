@@ -47,6 +47,11 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
     }
 
     @Override
+    protected void useDagger() {
+
+    }
+
+    @Override
     public void onMenuCreate() {
 
     }

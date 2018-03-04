@@ -14,7 +14,7 @@ import retrofit2.Call;
  * All rights reserved & copyright ©
  */
 
-public class ReviewsRetrofitDownloader implements ReviewListDownloader<RetrofitDownloadDataReviews> {
+public class ReviewsRetrofitDownloader implements ReviewListDownloader<ReviewListDownloader.Data> {
 
     @Inject
     RetrofitDownloader downloader;
@@ -26,7 +26,7 @@ public class ReviewsRetrofitDownloader implements ReviewListDownloader<RetrofitD
     }
 
     @Override
-    public void downloadReviews(final Callback callback, RetrofitDownloadDataReviews data) {
+    public void downloadReviews(final Callback callback, ReviewListDownloader.Data data) {
         Call<ReviewListBean> call = downloader.getReviews(
                 data.getMovieId(),
                 data.getApiKey(),

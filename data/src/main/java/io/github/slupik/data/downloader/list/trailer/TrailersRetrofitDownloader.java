@@ -14,7 +14,7 @@ import retrofit2.Call;
  * All rights reserved & copyright ©
  */
 
-public class TrailersRetrofitDownloader implements TrailerListDownloader<RetrofitDownloadDataTrailers> {
+public class TrailersRetrofitDownloader implements TrailerListDownloader<TrailerListDownloader.Data> {
 
     @Inject
     RetrofitDownloader downloader;
@@ -27,7 +27,7 @@ public class TrailersRetrofitDownloader implements TrailerListDownloader<Retrofi
     }
 
     @Override
-    public void downloadTrailers(Callback callback, RetrofitDownloadDataTrailers data) {
+    public void downloadTrailers(Callback callback, TrailerListDownloader.Data data) {
         Call<TrailerListBean> call = downloader.getTrailers(
                 data.getMovieId(),
                 data.getApiKey(),

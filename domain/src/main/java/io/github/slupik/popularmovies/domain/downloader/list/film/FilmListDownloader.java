@@ -20,5 +20,11 @@ public interface FilmListDownloader<D extends FilmListDownloader.Data> {
     }
 
     interface Data {
+        int getPageOfRanking();
+        Data setPageOfRanking(int page);
+        String getLanguage();
+        Data setLanguage(String language);
+        String getApiKey();
+        Data setApiKey(String apiKey);
     }
 }
