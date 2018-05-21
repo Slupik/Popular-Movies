@@ -39,7 +39,7 @@ class MovieDbHelper extends SQLiteOpenHelper {
 				MovieContract.MovieEntry.COLUMN_VOTE_AVERAGE + " DOUBLE NOT NULL, " +
 				MovieContract.MovieEntry.COLUMN_OVERVIEW + " TEXT NOT NULL, " +
 				MovieContract.MovieEntry.COLUMN_RELEASE_DATE + " VARCHAR(20) NOT NULL, " +
-				MovieContract.MovieEntry.COLUMN_FAVOURITE + " BOOLEAN NOT NULL DEFAULT FALSE, " +
+				MovieContract.MovieEntry.COLUMN_FAVOURITE + " BOOLEAN NOT NULL DEFAULT 0, " +
 				MovieContract.MovieEntry.COLUMN_IMAGE_POSTER + " BLOB, " +
 				MovieContract.MovieEntry.COLUMN_IMAGE_BACKDROP + " BLOB" +
 				");";
@@ -48,6 +48,10 @@ class MovieDbHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+	    /*
+		It's bad practice but in this project there is no need to change this because
+		the database will not be changed
+		 */
 		sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ MovieContract.MovieEntry.TABLE_NAME);
 		onCreate(sqLiteDatabase);
 	}
