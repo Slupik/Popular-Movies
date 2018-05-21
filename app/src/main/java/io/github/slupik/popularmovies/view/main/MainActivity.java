@@ -47,10 +47,17 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         AndroidInjection.inject(this);
-        presenter.onAttach(this);
 
+        setupPresenter(savedInstanceState);
         setupDownloadingButton();
-        setupRecyclerView();
+        setupRecyclerView(savedInstanceState);
+    }
+
+    private void setupPresenter(Bundle savedInstanceState) {
+        presenter.onAttach(this);
+        if(savedInstanceState!=null){
+            presenter.onRestore(savedInstanceState.getBundle(PRESENTER_DATA));
+        }
     }
 
     private static final String LIST_DATA = "listData";
@@ -69,9 +76,6 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         lastBundle = savedInstanceState;
-
-        mAdapter.onRestore(savedInstanceState.getBundle(LIST_DATA));
-        presenter.onRestore(savedInstanceState.getBundle(PRESENTER_DATA));
     }
 
     @Override
@@ -90,7 +94,7 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
         });
     }
 
-    private void setupRecyclerView() {
+    private void setupRecyclerView(Bundle savedInstanceState) {
         mAdapter = createFilmList();
         RecyclerView.LayoutManager manager;
         if(getResources().getConfiguration().orientation==ORIENTATION_LANDSCAPE) {
@@ -101,6 +105,9 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
         rvFilmList.setLayoutManager(manager);
         rvFilmList.setHasFixedSize(true);
         rvFilmList.setAdapter(mAdapter);
+        if(savedInstanceState!=null){
+            mAdapter.onRestore(savedInstanceState.getBundle(LIST_DATA));
+        }
     }
 
     private RecycleViewFilmList createFilmList() {

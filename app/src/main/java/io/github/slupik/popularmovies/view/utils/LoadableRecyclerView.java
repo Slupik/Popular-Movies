@@ -126,6 +126,10 @@ public abstract class LoadableRecyclerView<H extends RecyclerView.ViewHolder, V 
         this.mContext = mContext;
     }
 
+    /*
+            SAVE AND RESTORE
+     */
+
     private static final String ITEM_LIST_NAME = "itemList";
     private static final String LIST_STATE_KEY = "listStateKey";
     @Override
@@ -141,6 +145,7 @@ public abstract class LoadableRecyclerView<H extends RecyclerView.ViewHolder, V 
         List<V> list = gson.fromJson(
                 bundle.getString(ITEM_LIST_NAME), getItemType()
         );
+        itemList.clear();
         itemList.addAll(list);
 
         Parcelable parcel = bundle.getParcelable(LIST_STATE_KEY);

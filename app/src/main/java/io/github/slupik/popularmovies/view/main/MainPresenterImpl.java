@@ -114,7 +114,6 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView>
     @Override
     public void onRestore(Bundle bundle) {
         page = bundle.getInt(PAGE_NAME);
-        page++;
 
         int typeId = bundle.getInt(SORT_OPTION);
         mActualType = FilmsType.fromId(typeId);
