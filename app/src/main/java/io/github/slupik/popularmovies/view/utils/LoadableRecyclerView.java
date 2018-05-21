@@ -1,13 +1,21 @@
 package io.github.slupik.popularmovies.view.utils;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.CallSuper;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.slupik.popularmovies.dagger.view.utils.DaggerLoadableRecyclerViewComponent;
+import io.github.slupik.popularmovies.domain.models.ParcelableModel;
 
 /**
  * Created by Sebastian Witasik on 04.03.2018.
@@ -15,13 +23,21 @@ import java.util.List;
  * All rights reserved & copyright ©
  */
 
-public abstract class LoadableRecyclerView<H extends RecyclerView.ViewHolder, V> extends RecyclerView.Adapter<H> {
+public abstract class LoadableRecyclerView<H extends RecyclerView.ViewHolder, V extends ParcelableModel>
+        extends RecyclerView.Adapter<H>
+        implements Restoreable {
 
     protected Context mContext;
+
+    private Gson gson;
 
     private List<V> itemList = new ArrayList<>();
     private boolean downloading = false;
     private RecyclerView recyclerView;
+
+    protected LoadableRecyclerView(){
+        gson = DaggerLoadableRecyclerViewComponent.builder().build().getGson();
+    }
 
     @CallSuper
     @Override
@@ -79,14 +95,13 @@ public abstract class LoadableRecyclerView<H extends RecyclerView.ViewHolder, V>
         handler.post(new Runnable() {
             @Override
             public void run() {
-                final int x = recyclerView.getScrollX();
-                final int y = recyclerView.getScrollY();
+                final Parcelable parcel = recyclerView.getLayoutManager().onSaveInstanceState();
                 notifyDataSetChanged();
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        recyclerView.scrollTo(x, y);
+                        recyclerView.getLayoutManager().onRestoreInstanceState(parcel);
                         downloading = false;
                     }
                 }, 100);
@@ -110,4 +125,27 @@ public abstract class LoadableRecyclerView<H extends RecyclerView.ViewHolder, V>
     public void setContext(Context mContext) {
         this.mContext = mContext;
     }
+
+    private static final String ITEM_LIST_NAME = "itemList";
+    private static final String LIST_STATE_KEY = "listStateKey";
+    @Override
+    public Bundle onSave(){
+        Bundle bundle = new Bundle();
+        bundle.putString(ITEM_LIST_NAME, gson.toJson(itemList));
+        bundle.putParcelable(LIST_STATE_KEY, recyclerView.getLayoutManager().onSaveInstanceState());
+        return bundle;
+    }
+
+    @Override
+    public void onRestore(Bundle bundle){
+        List<V> list = gson.fromJson(
+                bundle.getString(ITEM_LIST_NAME), getItemType()
+        );
+        itemList.addAll(list);
+
+        Parcelable parcel = bundle.getParcelable(LIST_STATE_KEY);
+        recyclerView.getLayoutManager().onRestoreInstanceState(parcel);
+    }
+
+    protected abstract Type getItemType();
 }

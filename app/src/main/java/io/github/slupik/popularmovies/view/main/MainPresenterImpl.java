@@ -1,6 +1,7 @@
 package io.github.slupik.popularmovies.view.main;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import javax.inject.Inject;
@@ -19,7 +20,8 @@ import io.github.slupik.popularmovies.view.mvp.presenter.BasePresenter;
  * All rights reserved & copyright ©
  */
 
-public class MainPresenterImpl extends BasePresenter<MainPresentedView> implements MainPresenter, FilmListDownloader.Callback {
+public class MainPresenterImpl extends BasePresenter<MainPresentedView>
+        implements MainPresenter, FilmListDownloader.Callback {
     private FilmsType mActualType = FilmsType.POPULAR;
 
     @Inject
@@ -97,5 +99,25 @@ public class MainPresenterImpl extends BasePresenter<MainPresentedView> implemen
         error.printStackTrace();
         page--;
         presented.errorUnknownWhileDownloading();
+    }
+
+    private static final String PAGE_NAME = "page";
+    private static final String SORT_OPTION = "sortOption";
+    @Override
+    public Bundle onSave() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(PAGE_NAME, page);
+        bundle.putInt(SORT_OPTION, mActualType.ID);
+        return bundle;
+    }
+
+    @Override
+    public void onRestore(Bundle bundle) {
+        page = bundle.getInt(PAGE_NAME);
+        page++;
+
+        int typeId = bundle.getInt(SORT_OPTION);
+        mActualType = FilmsType.fromId(typeId);
+        if(mActualType != null) presented.changeSortIcons(mActualType);
     }
 }

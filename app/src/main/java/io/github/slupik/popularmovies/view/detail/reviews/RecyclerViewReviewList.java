@@ -4,6 +4,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.domain.models.review.Review;
 import io.github.slupik.popularmovies.view.detail.DetailPresenter;
@@ -23,6 +28,11 @@ public class RecyclerViewReviewList extends LoadableRecyclerView<ViewHolderRevie
 
     public RecyclerViewReviewList(DetailPresenter mPresenter) {
         this.mPresenter = mPresenter;
+    }
+
+    @Override
+    protected Type getItemType() {
+        return new TypeToken<List<Review>>() {}.getType();
     }
 
     @Override

@@ -2,6 +2,7 @@ package io.github.slupik.popularmovies.view.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -81,6 +82,16 @@ class FakePresenterForUXTest extends BasePresenter<DetailPresentedView> implemen
     @Override
     public Film getFilm() {
         return new FilmBean().setOnlineId(297761);
+    }
+
+    @Override
+    public Bundle onSave() {
+        return null;
+    }
+
+    @Override
+    public void onRestore(Bundle bundle) {
+
     }
 
     private class FakeDownloading implements Runnable {

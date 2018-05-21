@@ -27,16 +27,19 @@ dependencies {
 	implementation project(':domain')
 
 	//Dependency injection - dagger
-	compile "com.google.dagger:dagger:$daggerVersion"
+	 implementation"com.google.dagger:dagger:$daggerVersion"
 	annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-	compile "com.google.dagger:dagger-android:$daggerVersion"
+	 implementation"com.google.dagger:dagger-android:$daggerVersion"
 	annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-	compile "com.google.dagger:dagger-android-support:$daggerVersion"
+	 implementation"com.google.dagger:dagger-android-support:$daggerVersion"
 
 	//Android background
-	compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
-	compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-	compile "com.google.code.gson:gson:$gsonVersion"
+	 implementation"com.squareup.retrofit2:retrofit:$retrofitVersion"
+	 implementation"com.squareup.retrofit2:converter-gson:$retrofitVersion"
+	 implementation"com.google.code.gson:gson:$gsonVersion"
+
+	//Helpful libraries
+	 implementation"org.parceler:parceler-api:$parcelerVersion"
 
 	//Android compatibility stuff
 	implementation "com.android.support:appcompat-v7:$appcompat"

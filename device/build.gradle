@@ -28,11 +28,11 @@ dependencies {
 	implementation project(':domain')
 
 	//Dependency injection - dagger
-	compile "com.google.dagger:dagger:$daggerVersion"
+	 implementation"com.google.dagger:dagger:$daggerVersion"
 	annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-	compile "com.google.dagger:dagger-android:$daggerVersion"
+	 implementation"com.google.dagger:dagger-android:$daggerVersion"
 	annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-	compile "com.google.dagger:dagger-android-support:$daggerVersion"
+	 implementation"com.google.dagger:dagger-android-support:$daggerVersion"
 
 	//Android compatibility stuff
 	implementation "com.android.support:appcompat-v7:$appcompat"

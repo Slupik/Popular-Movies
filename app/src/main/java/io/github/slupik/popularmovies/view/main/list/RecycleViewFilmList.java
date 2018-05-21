@@ -4,6 +4,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
 import io.github.slupik.popularmovies.R;
 import io.github.slupik.popularmovies.domain.models.film.Film;
 import io.github.slupik.popularmovies.view.main.MainPresenter;
@@ -24,6 +29,11 @@ public class RecycleViewFilmList extends LoadableRecyclerView<ViewHolderFilm, Fi
 
     public RecycleViewFilmList(MainPresenter presenter) {
         this.mPresenter = presenter;
+    }
+
+    @Override
+    protected Type getItemType() {
+        return new TypeToken<List<Film>>() {}.getType();
     }
 
     @Override

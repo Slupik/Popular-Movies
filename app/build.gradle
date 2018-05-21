@@ -29,23 +29,29 @@ dependencies {
 
 	//Dependency injection - dagger
 	implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-	compile "com.google.dagger:dagger:$daggerVersion"
+	 implementation"com.google.dagger:dagger:$daggerVersion"
 	annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-	compile "com.google.dagger:dagger-android:$daggerVersion"
+	 implementation"com.google.dagger:dagger-android:$daggerVersion"
 	annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-	compile "com.google.dagger:dagger-android-support:$daggerVersion"
+	 implementation"com.google.dagger:dagger-android-support:$daggerVersion"
 
 	//Android view
-	compile "com.jakewharton:butterknife:$butterKnife"
+	 implementation"com.jakewharton:butterknife:$butterKnife"
 	annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
-	compile "com.android.support:recyclerview-v7:$appcompat"
-	compile "com.android.support:design:$appcompat"
+	 implementation"com.android.support:recyclerview-v7:$appcompat"
+	 implementation"com.android.support:design:$appcompat"
 
-	compile "com.squareup.picasso:picasso:$picassoVersion"
+	 implementation"com.squareup.picasso:picasso:$picassoVersion"
 	implementation "com.android.support.constraint:constraint-layout:$constraintLayout"
+
+	//Helpful libraries
+	 implementation"org.parceler:parceler-api:$parcelerVersion"
 
 //    Android compatibility stuff
 	implementation("com.android.support:appcompat-v7:$appcompat")
+
+	//Android background
+	implementation"com.google.code.gson:gson:$gsonVersion"
 
 	/*
 		TESTS

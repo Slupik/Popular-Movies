@@ -2,6 +2,8 @@ package io.github.slupik.data.models.film;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import io.github.slupik.popularmovies.domain.models.film.Film;
 
 /**
@@ -10,6 +12,7 @@ import io.github.slupik.popularmovies.domain.models.film.Film;
  * All rights reserved & copyright ©
  */
 
+@Parcel(Parcel.Serialization.BEAN)
 public class FilmBean implements Film {
     @SerializedName("title")
     private String title;
@@ -139,5 +142,15 @@ public class FilmBean implements Film {
     @Override
     public boolean isFavourite() {
         return favourite;
+    }
+
+//    @Override
+//    public ParcelConverter<Film> getParcelConverter() {
+//        return new ModelParcelConverter<Film>(getClass().getClassLoader());
+//    }
+
+    @Override
+    public ClassLoader getClassLoader() {
+        return FilmBean.class.getClassLoader();
     }
 }

@@ -1,6 +1,7 @@
 package io.github.slupik.popularmovies.view.main;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -78,6 +79,16 @@ class FakePresenterForUXTest extends BasePresenter<MainPresentedView> implements
     @Override
     @Deprecated
     public void switchFilmsType(FilmsType type) {
+
+    }
+
+    @Override
+    public Bundle onSave() {
+        return null;
+    }
+
+    @Override
+    public void onRestore(Bundle bundle) {
 
     }
 

@@ -7,6 +7,23 @@ package io.github.slupik.popularmovies.view.main;
  */
 
 enum FilmsType {
-    POPULAR,
-    FAVOURITE, TOP_RATED
+    UNKNOWN(-1),
+    POPULAR(0),
+    FAVOURITE(1),
+    TOP_RATED(2);
+
+    public final int ID;
+
+    FilmsType(int id) {
+        ID = id;
+    }
+
+    public static FilmsType fromId(int id){
+        for(FilmsType type:values()) {
+            if(type.ID==id) {
+                return type;
+            }
+        }
+        return UNKNOWN;
+    }
 }

@@ -2,6 +2,7 @@ package io.github.slupik.popularmovies.view.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -31,7 +32,8 @@ import static io.github.slupik.popularmovies.view.detail.DetailActivity.BUNDLE_N
  * All rights reserved & copyright ©
  */
 
-public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> implements DetailPresenter, TrailerListDownloader.Callback, ReviewListDownloader.Callback {
+public class DetailPresenterImpl extends BasePresenter<DetailPresentedView>
+        implements DetailPresenter, TrailerListDownloader.Callback, ReviewListDownloader.Callback {
 
     @Inject
     FilmRepository repository;
@@ -161,5 +163,21 @@ public class DetailPresenterImpl extends BasePresenter<DetailPresentedView> impl
         if(amountOfReviews==0) {
             presented.hideReviewsSection();
         }
+    }
+
+    private static final String REV_PAGE_NAME = "revPage";
+    private static final String MAX_PAGE_NAME = "maxPage";
+    @Override
+    public Bundle onSave() {
+        Bundle bundle = new Bundle();
+        bundle.putInt(REV_PAGE_NAME, reviewsPage);
+        bundle.putInt(MAX_PAGE_NAME, maxReviewsPages);
+        return bundle;
+    }
+
+    @Override
+    public void onRestore(Bundle bundle) {
+        reviewsPage = bundle.getInt(REV_PAGE_NAME);
+        maxReviewsPages = bundle.getInt(MAX_PAGE_NAME);
     }
 }

@@ -88,6 +88,25 @@ public class DetailActivity extends BaseActivity implements DetailPresentedView 
         setupRecyclerView();
     }
 
+    private static final String LIST_DATA = "listData";
+    private static final String PRESENTER_DATA = "presData";
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBundle(LIST_DATA, mAdapter.onSave());
+        savedInstanceState.putBundle(PRESENTER_DATA, presenter.onSave());
+
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        mAdapter.onRestore(savedInstanceState.getBundle(LIST_DATA));
+        presenter.onRestore(savedInstanceState.getBundle(PRESENTER_DATA));
+    }
+
     private void setupRecyclerView() {
         mAdapter = createReviewList();
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);

@@ -53,6 +53,33 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
         setupRecyclerView();
     }
 
+    private static final String LIST_DATA = "listData";
+    private static final String PRESENTER_DATA = "presData";
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBundle(LIST_DATA, mAdapter.onSave());
+        savedInstanceState.putBundle(PRESENTER_DATA, presenter.onSave());
+
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    private Bundle lastBundle;
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        lastBundle = savedInstanceState;
+
+        mAdapter.onRestore(savedInstanceState.getBundle(LIST_DATA));
+        presenter.onRestore(savedInstanceState.getBundle(PRESENTER_DATA));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(lastBundle!=null) mAdapter.onRestore(lastBundle.getBundle(LIST_DATA));
+    }
+
     private void setupDownloadingButton() {
         btnDownloadAgain.setVisibility(View.GONE);
         btnDownloadAgain.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +154,8 @@ public class MainActivity extends BaseActivity implements MainPresentedView {
 
     @Override
     public void changeSortIcons(FilmsType type) {
+        if(miFavourite==null) return;
+
         miFavourite.setIcon(R.drawable.favourite_off);
         miRate.setIcon(R.drawable.top_rated_off);
         miPopular.setIcon(R.drawable.best_off);

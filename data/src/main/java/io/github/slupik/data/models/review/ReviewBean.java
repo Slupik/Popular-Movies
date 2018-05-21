@@ -2,6 +2,8 @@ package io.github.slupik.data.models.review;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import io.github.slupik.popularmovies.domain.models.review.Review;
 
 /**
@@ -10,6 +12,7 @@ import io.github.slupik.popularmovies.domain.models.review.Review;
  * All rights reserved & copyright ©
  */
 
+@Parcel(Parcel.Serialization.BEAN)
 public class ReviewBean implements Review {
     @SerializedName("id")
     private String id;
@@ -53,4 +56,8 @@ public class ReviewBean implements Review {
         this.url = url;
     }
 
+    @Override
+    public ClassLoader getClassLoader() {
+        return ReviewBean.class.getClassLoader();
+    }
 }
