@@ -6,7 +6,9 @@ package io.github.slupik.data.downloader;
  * All rights reserved & copyright ©
  */
 
-public class FilmConnectionUtils {
+public final class FilmConnectionUtils {
     public static final String API_BASE_URL = "http://api.themoviedb.org/3/";
     public static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
+
+    private FilmConnectionUtils() {}
 }
